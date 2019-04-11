@@ -1,0 +1,5 @@
+2019-04-11 22:37:59 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLException: Table "PICTURES" not found; SQL statement:
+update pictures
+set IS_PROFILE_PICTURE = true
+where id = 5 [42102-197]

@@ -22,7 +22,7 @@ public class PictureService {
     @Autowired
     private PictureAlbumService pictureAlbumService;
 
-    public void addPicture(MultipartFile file, String profileCode) throws IOException {
+    public void addPicture(MultipartFile file, String profileCode, String caption, Boolean isProfilePicture) throws IOException {
 
         String UserName = userAccountRepository.getUserAccountByProfileCode(profileCode).getUserName();
 // hae resurssit repoista:
@@ -35,9 +35,9 @@ public class PictureService {
         picture.setContentLength(file.getSize());
         picture.setContentType(file.getContentType());
         picture.setName(file.getOriginalFilename());
-        
+        picture.setCaption(caption);
+        picture.setIsProfilePicture(Boolean.FALSE);
         picture.setPictureAlbum(u.getPictureAlbum());
- 
 //lisää kuva listalle:
         pictures.add(picture);
 // Tallenna kaikki, myös repoihin:
@@ -48,4 +48,29 @@ public class PictureService {
         pictureRepository.save(picture);
     }
 
+    public void makeProfilePicture(Long id) {
+        ////////////////KORVAA///
+        /////////////////////////
+        UserAccount owner = userAccountRepository.getUserAccountByUserName("jessi");
+        PictureAlbum pictureAlbum = pictureAlbumRepository.getPictureAlbumByOwner(owner);
+        List<Picture> pictures = pictureAlbum.getPictures();
+
+        System.out.println(owner.getProfileCode());
+        System.out.println(id);
+
+        for (Picture pic : pictures) {
+            if (pic.getId().equals(id)) {
+                pic.setIsProfilePicture(Boolean.TRUE);
+
+            } else {
+
+                pic.setIsProfilePicture(Boolean.FALSE);
+            }
+            pictureRepository.save(pic);
+        }
+        pictureAlbum.setPictures(pictures);
+        owner.setPictureAlbum(pictureAlbum);
+        pictureAlbumRepository.save(pictureAlbum);
+        userAccountRepository.save(owner);
+    }
 }

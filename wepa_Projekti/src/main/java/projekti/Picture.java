@@ -18,6 +18,8 @@ public class Picture extends AbstractPersistable<Long> {
     private Long contentLength;
     private String name;
     private String contentType;
+    private String caption;
+    private Boolean isProfilePicture;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)

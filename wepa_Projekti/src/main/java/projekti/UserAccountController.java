@@ -36,9 +36,6 @@ public class UserAccountController {
     @Autowired
     private PictureService pictureService;
 
-    @Autowired
-    private PictureRepository pictureRepository;
-
     @GetMapping("/signup")
     public String showSignUpPage() {
         return "signup";
@@ -51,28 +48,20 @@ public class UserAccountController {
 
     @GetMapping("/profile/{profileCode}")
     public String showProfilePage(Model model, @PathVariable String profileCode) {
-
-        System.out.println("- - - 1 - - - String profileCode: " + profileCode);
-
         UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
         model.addAttribute("userAccount", userAccountService.getUserAccountByProfileCode(profileCode));
         model.addAttribute("profileCode", profileCode);
-        System.out.println("- - - 2 - - - String profileCode: " + profileCode);
-
         model.addAttribute("pictures", pictureAlbumService.getPictureAlbumByOwner(u).getPictures());
 
+        for (Picture pic : pictureAlbumService.getPictureAlbumByOwner(u).getPictures()) {
+            Long profilePicId;
+            if (pic.getIsProfilePicture() == true) {
+                profilePicId = pic.getId();
+                model.addAttribute("profilePicId", profilePicId);
+            }
+        }
+
         return "profile";
-    }
-
-    @GetMapping("/picture/{id}")
-    public ResponseEntity<byte[]> viewFile(@PathVariable Long id) {
-
-        Picture pic = pictureRepository.getOne(id);
-        
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType(pic.getContentType()));
-        headers.setContentLength(pic.getContentLength());
-        return new ResponseEntity<>(pic.getContent(), headers, HttpStatus.CREATED);
     }
 
     @PostMapping("/signup")

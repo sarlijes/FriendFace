@@ -39,17 +39,30 @@
                                             <tr th:if="${pictures.empty}">
                                                 <td colspan="4">No pictures</td>
                                             </tr>
-                                            <tr th:each="picture : ${pictures}">
-                                                <td><a th:href="@{/picture/{id}(id=${picture.id})}" th:text="${picture.name}">file name</a></td>
+                                            <div th:if="${profilePicId} != null">
 
-                                                <td><form th:action="@{/picture/{id}(id=${picture.id})}" th:method="delete"><input type="submit" value="Delete"/></form></td>
+                                                <img th:src="@{/picture/{id}/(id=${profilePicId})}" style="width:150px; border-radius:10px;"/>
+                                            </div>
+                                            <tr th:each="picture : ${pictures}">
+
+                                                <img th:src="@{/picture/{id}/(id=${picture.id})}" style="width:70px; border-radius:5px;"/>
+                                                <td><form th:action="@{/picture/{id}(id=${picture.id})}" th:method="makeprofilepicture">
+                                                        <input type="submit" id="makeprofilepicture" value="Set to profile pic"/></form></td>
+                                                <td><form th:action="@{/picture/{id}(id=${picture.id})}" th:method="delete">
+                                                        <input type="submit" id="delete" value="Delete"/></form></td>
+
+                                                <!--<td><form th:action="@{/picture/{id}(id=${picture.id})}" th:method="makeprofilepicture">
+                                                                                                        <input type="submit" value="Set to profile picture"/></form></td>
+                                                                                                <td><form th:action="@{/picture/{id}(id=${picture.id})}" th:method="delete"><input type="submit" value="Delete"/></form></td>-->
+
                                             </tr>
                                         </tbody>
 
                                         <h4>Add new picture</h4>
                                         <form method="POST" th:action="@{/profile/{profileCode}(profileCode=${userAccount.profileCode})}"
                                               enctype="multipart/form-data">
-                                            <input type="file" name="file" id="file" />
+                                            <input type="file" name="file" id="file" />Caption:
+                                            <input type="text" name="caption" id="caption" placeholder="..."/>
                                             <input type="submit" value="Add!" />
                                         </form>
                                         </p>
@@ -58,7 +71,6 @@
                                         <h3 class="feature-title">Wall</h3>
                                         <img src="images/column-2.jpg" class="img-fluid">
                                             <p>
-
                                             </p>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-12">
