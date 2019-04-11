@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <head>
+        <!--<link rel="stylesheet" href="style.css">-->
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+            <meta charset="UTF-8">
+            </meta>
+            <title>FriendFace</title>
+
+            <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+                <link type="text/css" rel="stylesheet" href="style.css">
+                    </head>
+                    </meta>
+
+                    <style>
+                        img {
+                            border: 1px solid #ddd;
+                            border-radius: 4px;
+                            padding: 5px;
+                            width: 150px;
+                        }
+                        img:hover {
+                            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+                        }
+                    </style>
+
+                    <body style="
+                          font-family: Lato; 
+                          height: 100vh;
+                          margin: 300;
+                          padding: 0;
+                          box-sizing: border-box;
+                          font-family: Lato;
+                          font-size: 12px;
+                          text-align: center;
+                          /*text-transform: uppercase;*/
+                          letter-spacing: 4px;
+                          font-weight: 100;
+                          margin-top: 40px;
+                          margin-bottom: 10px;
+                          /*position: relative;*/
+                          color: #555;">
+
+                        <!-- TOP BOX-->
+
+                        <div class="txt" style="background-image: linear-gradient(rgba(240, 230, 230, 0.4), rgba(223, 216, 216, 0.4));
+                             width:1300px; height: 50px; float:left; margin: 20px; padding: 10px; border-width: 1px; border-style:solid;text-align: left;">
+
+                            <!--<div th:text="${useraccount.firstname}">Name</div>-->
+                            <!--<div th:text="${userAccount.firstName}">Name</div>-->
+                        </div>
+                        <!-- /TOP BOX-->                        
+
+                        <div style="width:1300px;">
+                            <div class="txt" style="background-image: linear-gradient(rgba(240, 230, 230, 0.4), rgba(223, 216, 216, 0.4));
+                                 width:300px; height: 300px; float:left; margin: 20px; padding: 10px; border-width: 1px; border-style:solid;">Profile Picture
+
+                                <h2>Add new picture</h2>
+                                <form method="POST" th:action="@{/profile/{profileCode}(profileCode=${userAccount.profileCode})}" enctype="multipart/form-data">
+                                    <input type="file" name="file" id="file"/>
+                                    <input type="submit" value="Add!"/>
+                                </form>
+
+<!--Jos teet Routerin joka palauttaa img tyypisen bodyn (harjoiteltu Filemanager tehtäväs ainakin) 
+niin voit käyttää img tagin src parametria niiden jokaisen hakemiseen osoitteen avulla.-->
+                                <table>
+                                    <tr>
+                                        <th>Picture</th>
+                                        <th>---</th>
+                                        <th>---</th>
+                                    </tr>
+                                    <tr th:each="picture : ${pictures}">
+                                        <th><img src="${picture.content}" alt="pic" style="width:70px"></th>
+                                        <th><form th:action="${picture.id}" th:method="delete"><input type="submit" value="Delete"/></form></th>
+                                    </tr>
+                                </table>
+
+                                <!--
+                                        <tr th:each="picture : ${pictures}">
+                                            <td><a th:href="@{/pictures/{id}(id=${file.id})}" th:text="${picture.name}">picture name</a></td>
+                                            <td><form th:action="@{/pictures/{id}(id=${file.id})}" th:method="delete"><input type="submit" value="Delete"/></form></td>
+                                        </tr>
+    
+                                    <table border="1" align="center" width="10%">
+                                        <caption>Mock Picture Gallery</caption>
+                                        <tr>
+                                            <td>
+                                                <a target="_parent" href="https://i.imgur.com/WybxO5n.jpg">
+                                                    <img src="https://i.imgur.com/WybxO5n.jpg" alt="Bunny" style="width:70px">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a target="_parent" href="https://i.imgur.com/WybxO5n.jpg">
+                                                    <img src="https://i.imgur.com/WybxO5n.jpg" alt="Bunny" style="width:70px">
+                                                </a>
+                                            </td>
+                                        </tr> <tr>
+                                            <td>
+                                                <a target="_parent" href="https://i.imgur.com/WybxO5n.jpg">
+                                                    <img src="https://i.imgur.com/WybxO5n.jpg" alt="Bunny" style="width:70px">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a target="_parent" href="https://i.imgur.com/WybxO5n.jpg">
+                                                    <img src="https://i.imgur.com/WybxO5n.jpg" alt="Bunny" style="width:70px">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>-->
+
+                            </div>
+                            <div class="txt" style="background-image: linear-gradient(rgba(240, 230, 230, 0.4), rgba(223, 216, 216, 0.4));
+                                 width:300px; height: 200px; float:right; margin: 20px; padding: 10px; border-width: 1px; border-style:solid;">Friend Requests
+                            </div>
+                            <div class="txt" style="background-image: linear-gradient(rgba(240, 230, 230, 0.4), rgba(223, 216, 216, 0.4));
+                                 width:500px; height: 500px; float:right; margin: 20px; padding: 10px; border-width: 1px; border-style:solid;">Wall <br>
+
+
+                            </div>
+                        </div>
+                    </body>
+                    </html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <head>
+        <!--<link rel="stylesheet" href="style.css">-->
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+            <meta charset="UTF-8">
+            </meta>
+            <title>FriendFace</title>
+
+            <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+                <!--                <link type="text/css" rel="stylesheet" href="style.css">-->
+                </head>
+                </meta>
+                <body style="
+                      font-family: Lato; 
+                      height: 100vh;
+                      margin: 300;
+                      padding: 0;
+                      box-sizing: border-box;
+                      font-family: Lato;
+                      font-size: 12px;
+                      text-align: center;
+                      /*text-transform: uppercase;*/
+                      letter-spacing: 4px;
+                      font-weight: 100;
+                      margin-top: 40px;
+                      margin-bottom: 10px;
+                      /*position: relative;*/
+                      color: #555;">
+
+                    <!-- TOP BOX-->
+
+                    <div class="txt" style="background-image: linear-gradient(rgba(240, 230, 230, 0.4), rgba(223, 216, 216, 0.4));
+                         width:1300px; height: 50px; float:left; margin: 20px; padding: 10px; border-width: 1px; border-style:solid;text-align: left;">FriendFace
+
+
+                    </div>
+
+                    <!-- /TOP BOX-->                                
+
+                    <!-- SIGN UP-->                             
+
+                    <div class="txt" style="background-image: linear-gradient(rgba(240, 230, 230, 0.4), rgba(223, 216, 216, 0.4));
+                         width:300px; height: 300px; float:left; margin: 20px; padding: 10px; border-width: 1px; border-style:solid;">Sign up
+
+                        <form th:action="@{/signup}" method="POST">
+                            <span>Username:</span>
+                            <input type="text" name="userName" />
+                            <span>Password:</span>
+                            <input type="text" name="passWord" />
+                            <span>First Name:</span>
+                            <input type="text" name="firstName" />
+                            <span>Last Name:</span>
+                            <input type="text" name="lastName" />
+                            <span>Profile URL:</span>
+                            <input type="text" name="profileCode" />
+                            <input type="submit" value="Confirm and sign up" />
+                        </form>
+
+                        <a th:href="@{/login}">Log in</a></li>
+                    </div>
+                    <!-- /SIGN UP-->
+                    </div>
+                    </div>
+                </body>
+                </html>
