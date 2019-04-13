@@ -54,19 +54,14 @@ public class PictureService {
         UserAccount owner = userAccountRepository.getUserAccountByUserName("jessi");
         PictureAlbum pictureAlbum = pictureAlbumRepository.getPictureAlbumByOwner(owner);
         List<Picture> pictures = pictureAlbum.getPictures();
-
         System.out.println(owner.getProfileCode());
         System.out.println(id);
-
         for (Picture pic : pictures) {
             if (pic.getId().equals(id)) {
                 pic.setIsProfilePicture(Boolean.TRUE);
-
             } else {
-
                 pic.setIsProfilePicture(Boolean.FALSE);
             }
-            pictureRepository.save(pic);
         }
         pictureAlbum.setPictures(pictures);
         owner.setPictureAlbum(pictureAlbum);

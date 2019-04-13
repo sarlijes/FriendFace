@@ -15,11 +15,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserAccountRepository userAccountRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserAccount userAccount = userAccountRepository.getUserAccountByUserName(userName);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println(username);
+        UserAccount userAccount = userAccountRepository.getUserAccountByUserName(username);
         if (userAccount == null) {
-            throw new UsernameNotFoundException("No such user: " + userName);
+            throw new UsernameNotFoundException("No such user: " + username);
         }
+        System.out.println("++++++++++++++++++++++++++++++++++++");
 
         return new org.springframework.security.core.userdetails.User(
                 userAccount.getUserName(),

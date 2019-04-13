@@ -46,8 +46,17 @@ public class UserAccountController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logOut() {
+        return "login";
+    }
+
     @GetMapping("/profile/{profileCode}")
     public String showProfilePage(Model model, @PathVariable String profileCode) {
+
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = auth.getName();
+//        System.out.println("UserAccountController " + username);
         UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
         model.addAttribute("userAccount", userAccountService.getUserAccountByProfileCode(profileCode));
         model.addAttribute("profileCode", profileCode);

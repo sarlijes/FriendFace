@@ -36,7 +36,7 @@ public class PictureController {
 //        if (!file.getContentType().equals("image/jpg")) {
 //            return "redirect:/profile/" + profileCode;
 //        }
-        if (pictureRepository.count() <= 9) {
+        if (pictureRepository.count() <= 9 && !file.isEmpty()) {
             pictureService.addPicture(file, profileCode, caption, false);
         }
         return "redirect:/profile/" + profileCode;
@@ -45,14 +45,13 @@ public class PictureController {
     @DeleteMapping("/picture/{id}")
     public String delete(@PathVariable Long id) throws IOException {
         pictureRepository.deleteById(id);
-//        pictureService.addPicture(file, profileCode);
-        return "redirect:/profile/";
+        return "redirect:/profile/" + "jessi545";
     }
 
     @PostMapping("/picture/{id}")
     public String makeProfilePicture(@PathVariable Long id) throws IOException {
         pictureService.makeProfilePicture(id);
-        return "redirect:/profile/";
+        return "redirect:/profile/" + "jessi545";
     }
 
 //    @PostMapping("/profile/{profileCode}")

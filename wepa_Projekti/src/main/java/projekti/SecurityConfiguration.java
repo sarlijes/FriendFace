@@ -23,6 +23,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService customuserDetailsService;
 
+    /*
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/profile", true)
+                //.failureUrl("/login.html?error=true")
+                //          .failureHandler(authenticationFailureHandler())
+                .and()
+                .logout()
+                .logoutUrl("/perform_logout");
+
+    }
+
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -35,30 +57,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/profile", true);
-
-//                .logout()
-//                .logoutUrl("/logout")
-//                .logoutSuccessUrl("/login");
-    }
-
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("jessi")
-                .password("123")
-                .authorities("USER")
-                .build();
-
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(user);
-        return manager;
+                .defaultSuccessUrl("/profile", true)
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        System.out.println(" - - 1 - - SecurityConfiguration.configureGlobal + + + +");
         auth.userDetailsService(customuserDetailsService).passwordEncoder(passwordEncoder());
+        System.out.println(" - - 2 - - SecurityConfiguration.configureGlobal + + + +");
     }
 
     @Bean
