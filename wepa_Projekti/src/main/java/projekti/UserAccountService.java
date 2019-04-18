@@ -13,12 +13,16 @@ public class UserAccountService {
 
 //    @Transactional
     public void addUserAccount(String userName, String passWord, String firstName, String lastName, String profileCode) {
-        userAccountRepository.save(new UserAccount(userName, passWord, firstName, lastName, profileCode, null));
+        userAccountRepository.save(new UserAccount(userName, passWord, firstName, lastName, profileCode, null, null, null));
         userAccountRepository.getUserAccountByUserName(userName).setPictureAlbum(new PictureAlbum());
     }
 
     public Long getIdByProfileCode(String profileCode) {
         return userAccountRepository.getUserAccountByProfileCode(profileCode).getId();
+    }
+
+    public UserAccount getUserAccountById(Long id) {
+        return userAccountRepository.getUserAccountById(id);
     }
 
     public UserAccount getUserAccountByUserName(String userName) {

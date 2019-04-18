@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Picture extends AbstractPersistable<Long> {
+public class Picture extends Interactable {
 
     private Long contentLength;
     private String name;

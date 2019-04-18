@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -13,6 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import projekti.interact.FriendRequest;
 
 @Entity
 @Data
@@ -25,18 +27,12 @@ public class UserAccount extends AbstractPersistable<Long> {
     private String firstName;
     private String lastName;
     private String profileCode;
-//    @OneToMany(mappedBy = "reciever")
-//    private List<WallMessage> recievedWallMessages = new ArrayList<>();
-//    @OneToMany(mappedBy = "sender")
-//    private List<WallMessage> sentWallMessages = new ArrayList<>();
-//    @OneToOne(mappedBy = "owner")
-
-//    @OneToOne(mappedBy = "pictureAlbum")
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "picturealbum_id", referencedColumnName = "id")
-    
-//    @OneToOne(mappedBy = "owner")    
-    
     @OneToOne(cascade = CascadeType.ALL)
     private PictureAlbum pictureAlbum;
+
+    @OneToMany(mappedBy = "sourceUserAccount")
+    private List<FriendRequest> sentFriendRequests = new ArrayList<FriendRequest>();
+    @OneToMany(mappedBy = "targetUserAccount")
+    private List<FriendRequest> recievedFriendRequests = new ArrayList<FriendRequest>();
+
 }

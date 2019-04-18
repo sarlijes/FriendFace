@@ -6,4 +6,5 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
 
     UserAccount getUserAccountByProfileCode(String profileCode);
     UserAccount getUserAccountByUserName(String userName);
+    UserAccount getUserAccountById(Long id);
 }

@@ -1,0 +1,94 @@
+2do:
+- käyttäjien etsiminen nimellä https://www.youtube.com/watch?v=FCwKQzJ4Ubw
+https://getbootstrap.com/docs/4.0/components/navbar/#forms
+
+- tykkäykset ja kommentoinnit kuville ja messageille
+- testit
+- syötteiden validointi
+- hardcodejen siivous
+
+Liitokset nyt:
+
+UserAccount (omistaja)
+    @OneToOne(cascade = CascadeType.ALL)
+    private PictureAlbum pictureAlbum;
++   @OneToOne(cascade = CascadeType.ALL)
++   private Wall wall;
+
+PictureAlbum
+    @OneToOne(mappedBy = "pictureAlbum")
+    private UserAccount owner;
+    
+    @OneToMany(mappedBy = "pictureAlbum")
+    private List<Picture> pictures = new ArrayList<>();
+
+Picture (omistaja)
+    @ManyToOne(cascade = CascadeType.ALL)
+    private PictureAlbum pictureAlbum;
+
+Wall
+    private UserAccount wallOwner;
+    private List <Message> wallMessages  = new ArrayList<>();
+
+Message
+private UserAccount sender;
+private UserAccount reciever;
+private LocalDateTime messageTimeStamp
+private String content;
+//     private List <Message> wallMessages  = new ArrayList<>();
+//     private List <Comments> messageComments  = new ArrayList<>();
+
+[UserAccount]
+[FriendRequest]
+[Picture]
+[PictureAlbum]
+[Interactable]
+[Wall]
+[Message]
+[ThumbUp]
+[Comment]
+
+[Picture]>[Interactable]
+[Message]>[Interactable]
+[Useraccount]2-*[FriendRequest]
+[Useraccount]1-1[PictureAlbum]
+[UserAccount]1-1[Wall]
+[Picture]*-1[PictureAlbum]
+[Interactable]1-*[ThumbUp]
+[Interactable]1-*[Comment]
+[Wall]-*[Message]
+
+
+insert into message (id, content, MESSAGE_TIME_STAMP, RECIEVER_ID, SENDER_ID) values (3, 'kolmas asia', '2007-12-03T10:15:30', 1, 14);
+
+INSERT INTO FRIEND_REQUEST (ID,  	ACCEPTED,  	FRIEND_REQUEST_TIME_STAMP,  	PENDING,  	SOURCE_USER_ID,  	TARGET_USER_ID ) VALUES 
+(1, false, '2008-08-08', true, 1, 7);
+INSERT INTO FRIEND_REQUEST (ID,  	ACCEPTED,  	FRIEND_REQUEST_TIME_STAMP,  	PENDING,  	SOURCE_USER_ID,  	TARGET_USER_ID ) VALUES 
+(2, false, '2008-08-08', true, 1, 10);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
