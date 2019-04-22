@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,15 +34,18 @@ public class UserAccountController {
     private PictureService pictureService;
     @Autowired
     private FriendRequestService friendRequestService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/profile/{profileCode}")
     public String showProfilePage(Model model, @PathVariable String profileCode) {
 
-// "Kun käyttäjä on kirjautuneena, saa häneen liittyvän käyttäjätunnuksen ns. tietoturvakontekstista."
-// TÄMÄ EI TOIMI, antaa null point exception
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-//        System.out.println("UserAccountController " + username);
+// "Kun käyttäjä on kirjautuneena, saa häneen liittyvän käyttäjätunnuksen ns. tietoturvakontekstista. "
+// TÄMÄ EI TOIMI, antaa null point exception (pois kommentoitu rivi)
+Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//String username = auth.getName();
+//        System.out.println(".......................................");
+
 //        createMockRequests();        
         UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
         PictureAlbum pA = pictureAlbumService.getPictureAlbumByOwner(u);
