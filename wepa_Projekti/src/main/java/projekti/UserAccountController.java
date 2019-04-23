@@ -37,23 +37,27 @@ public class UserAccountController {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-    @GetMapping("/profile/{profileCode}")
-    public String showProfilePage(Model model, @PathVariable String profileCode) {
-
-// "Kun käyttäjä on kirjautuneena, saa häneen liittyvän käyttäjätunnuksen ns. tietoturvakontekstista. "
-// TÄMÄ EI TOIMI, antaa null point exception (pois kommentoitu rivi)
+    @GetMapping("/index")
+    public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-//        System.out.println(".......................................");
+//        showProfilePage(model, username);
+        return "redirect:/profile/" + userAccountService.getUserAccountByUserName(username).getProfileCode();
+    }
 
+    @GetMapping("/profile/{profileCode}")
+    public String showProfilePage(Model model, String userName) {
+//        System.out.println("username:" + userName);
 //        createMockRequests();        
-        UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
+//        UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
+        UserAccount u = userAccountService.getUserAccountByUserName(userName);
+//        System.out.println(u.getUserName());
         PictureAlbum pA = pictureAlbumService.getPictureAlbumByOwner(u);
         List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
         List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(u);
 
         model.addAttribute("userAccount", u);
-        model.addAttribute("profileCode", profileCode);
+        model.addAttribute("profileCode", u.getProfileCode());
         model.addAttribute("pictures", pictureAlbumService.getPictureAlbumByOwner(u).getPictures());
         model.addAttribute("recievedmessages", messageService.findMax25messages(u.getId()));
         model.addAttribute("sentFriendRequests", sentFriendRequests);
@@ -86,32 +90,30 @@ public class UserAccountController {
         return "redirect:/";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String userName, @RequestParam String passWord) {
-        // jos jompikumpi on tyhjä tai käyttäjää ei löydy, uudelleenohjaa:
-        if (userName.isEmpty() || passWord.isEmpty() || userAccountService.getUserAccountByUserName(userName) == null) {
-            return "redirect:/login";
-        }
-        // Jos salasana täsmää tietokannassa olevaan:
-        UserAccount u = new UserAccount();
-        if (userAccountService.getUserAccountByUserName(userName).getPassWord().equals(passWord)) {
-            u = userAccountService.getUserAccountByUserName(userName);
-        }
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-        return "redirect:/profile/" + userAccountService.getUserAccountByUserName(userName).getProfileCode();
-    }
-
+//    @PostMapping("/login")
+//    public String login(@RequestParam String userName, @RequestParam String passWord) {
+//        // jos jompikumpi on tyhjä tai käyttäjää ei löydy, uudelleenohjaa:
+//        if (userName.isEmpty() || passWord.isEmpty() || userAccountService.getUserAccountByUserName(userName) == null) {
+//            return "redirect:/login";
+//        }
+//        // Jos salasana täsmää tietokannassa olevaan:
+//        UserAccount u = new UserAccount();
+//        if (userAccountService.getUserAccountByUserName(userName).getPassWord().equals(passWord)) {
+//            u = userAccountService.getUserAccountByUserName(userName);
+//        }
+////        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+////        String username = auth.getName();
+//        return "redirect:/profile/" + userAccountService.getUserAccountByUserName(userName).getProfileCode();
+//    }
     @GetMapping("/signup")
     public String showSignUpPage() {
         return "signup";
     }
 
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login";
-    }
-
+//    @GetMapping("/login")
+//    public String showLoginPage() {
+//        return "login";
+//    }
     @GetMapping("/logout")
     public String logOut() {
         return "login";

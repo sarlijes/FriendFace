@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DefaultController {
 
     @GetMapping("*")
-    public String helloWorld(Model model) {
+    public String helloLogin(Model model) {
         return "login";
     }
 }

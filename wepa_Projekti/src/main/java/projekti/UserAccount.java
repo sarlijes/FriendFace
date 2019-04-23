@@ -34,5 +34,4 @@ public class UserAccount extends AbstractPersistable<Long> {
     private List<FriendRequest> sentFriendRequests = new ArrayList<FriendRequest>();
     @OneToMany(mappedBy = "targetUserAccount")
     private List<FriendRequest> recievedFriendRequests = new ArrayList<FriendRequest>();
-
 }

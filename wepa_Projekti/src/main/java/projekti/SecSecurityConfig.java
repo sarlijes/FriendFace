@@ -28,17 +28,15 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/profile.html", true)
-                .failureUrl("/login.html?error=true")
-                //.failureUrl("/login.html?error=true")
-                //.failureHandler(authenticationFailureHandler())
+                .permitAll()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/index")
+                
                 .and()
                 .logout()
-                .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID");
-//          .logoutSuccessHandler(logoutSuccessHandler());
+                .permitAll()
+                .logoutUrl("/logout");
     }
 
     @Autowired

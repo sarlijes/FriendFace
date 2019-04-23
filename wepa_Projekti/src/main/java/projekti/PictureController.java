@@ -54,14 +54,6 @@ public class PictureController {
         return "redirect:/profile/" + "jessi545";
     }
 
-//    @PostMapping("/profile/{profileCode}")
-//    public String add(@RequestParam("file") MultipartFile file, @PathVariable String profileCode) throws IOException {
-////        if (!file.getContentType().equals("image/jpg")) {
-////            return "redirect:/profile/" + profileCode;
-////        }
-//        pictureService.addPicture(file, profileCode);
-//        return "redirect:/profile/" + profileCode;
-//    }
     @GetMapping("/picture/{id}")
     public ResponseEntity<byte[]> viewFile(@PathVariable Long id) {
         Picture pic = pictureRepository.getOne(id);
