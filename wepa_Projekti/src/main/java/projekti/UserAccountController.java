@@ -42,8 +42,8 @@ public class UserAccountController {
 
 // "Kun käyttäjä on kirjautuneena, saa häneen liittyvän käyttäjätunnuksen ns. tietoturvakontekstista. "
 // TÄMÄ EI TOIMI, antaa null point exception (pois kommentoitu rivi)
-Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//String username = auth.getName();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
 //        System.out.println(".......................................");
 
 //        createMockRequests();        
