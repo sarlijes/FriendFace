@@ -49,9 +49,11 @@ public class PictureService {
     }
 
     public void makeProfilePicture(Long id) {
-        ////////////////KORVAA///
-        /////////////////////////
-        UserAccount owner = userAccountRepository.getUserAccountByUserName("jessi");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = auth.getName();
+        UserAccount owner = userAccountRepository.getUserAccountByUserName(loggedInUsername);
+
         PictureAlbum pictureAlbum = pictureAlbumRepository.getPictureAlbumByOwner(owner);
         List<Picture> pictures = pictureAlbum.getPictures();
         System.out.println(owner.getProfileCode());

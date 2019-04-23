@@ -6,6 +6,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,13 +47,19 @@ public class PictureController {
     @DeleteMapping("/picture/{id}")
     public String delete(@PathVariable Long id) throws IOException {
         pictureRepository.deleteById(id);
-        return "redirect:/profile/" + "jessi545";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = auth.getName();
+        UserAccount u = userAccountService.getUserAccountByUserName(loggedInUsername);
+        return "redirect:/profile/" + u.getProfileCode();
     }
 
     @PostMapping("/picture/{id}")
     public String makeProfilePicture(@PathVariable Long id) throws IOException {
         pictureService.makeProfilePicture(id);
-        return "redirect:/profile/" + "jessi545";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = auth.getName();
+        UserAccount u = userAccountService.getUserAccountByUserName(loggedInUsername);
+        return "redirect:/profile/" + u.getProfileCode();
     }
 
     @GetMapping("/picture/{id}")
@@ -64,3 +72,10 @@ public class PictureController {
         return new ResponseEntity<>(pic.getContent(), headers, HttpStatus.CREATED);
     }
 }
+/*
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = auth.getName();
+
+        return "redirect:/profile/" + profileCode;
+*/
