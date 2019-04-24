@@ -5,7 +5,8 @@ https://getbootstrap.com/docs/4.0/components/navbar/#forms
 - tykkäykset ja kommentoinnit kuville ja messageille
 - testit
 - syötteiden validointi
-- hardcodejen siivous
+- uniikki username ja code
+- metoditason autorisointi  @Secured("profileCode")
 
 Liitokset nyt:
 

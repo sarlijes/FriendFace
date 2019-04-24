@@ -58,6 +58,9 @@ public class UserAccountController {
         List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
         List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(u);
 
+        model.addAttribute("logged", userAccountService.getUserAccountByUserName(loggedInUsername));
+        model.addAttribute("loggedUserNameUpperCase", userAccountService.getUserAccountByUserName(loggedInUsername).getUserName().toUpperCase());
+
         model.addAttribute("userAccount", u);
 //        model.addAttribute("profileCode", u.getProfileCode()); 
         model.addAttribute("pictures", pictureAlbumService.getPictureAlbumByOwner(u).getPictures());
