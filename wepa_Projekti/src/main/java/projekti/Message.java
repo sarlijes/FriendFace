@@ -1,12 +1,17 @@
 package projekti;
 
 import java.time.LocalDateTime;
+import java.util.*;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import projekti.interact.Comment;
 
 @Entity
 @Data
@@ -20,9 +25,11 @@ public class Message extends Interactable {
     @ManyToOne
     private UserAccount reciever;
     private LocalDateTime messageTimeStamp;
+    @Lob
+    @Column(name = "CONTENT", length = 1500)
     private String content;
 
 //     private List <ThumbUp> messageThumbUps  = new ArrayList<>();
-//     private List <Comments> messageComments  = new ArrayList<>();
-
+    @OneToMany
+     private List <Comment> messageComments  = new ArrayList<>();
 }

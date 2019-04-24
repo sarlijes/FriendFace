@@ -7,6 +7,14 @@ https://getbootstrap.com/docs/4.0/components/navbar/#forms
 - syötteiden validointi
 - uniikki username ja code
 - metoditason autorisointi  @Secured("profileCode")
+- tiedostotyyppi
+- kuvan koko
+- kaveriprofiilin linkki tai pelkkä etunimi
+
+TOSU
+- comment
+- thumbup
+
 
 Liitokset nyt:
 
@@ -58,7 +66,9 @@ private String content;
 [Interactable]1-*[ThumbUp]
 [Interactable]1-*[Comment]
 [Wall]-*[Message]
-
+[UserAccount]1-*[Comment]
+[UserAccount]1-*[ThumbUp]
+[Useraccount]2-*[Message]
 
 insert into message (id, content, MESSAGE_TIME_STAMP, RECIEVER_ID, SENDER_ID) values (3, 'kolmas asia', '2007-12-03T10:15:30', 1, 14);
 

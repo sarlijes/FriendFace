@@ -22,7 +22,7 @@ public class MessageService {
 
     @Transactional
     public void addWallMessage(UserAccount sender, UserAccount reciever, LocalDateTime dateTime, String content) {
-        Message message = new Message(sender, reciever, dateTime, content);
+        Message message = new Message(sender, reciever, dateTime, content, null);
         messageRepository.save(message);
         UserAccount u = userAccountRepository.getUserAccountByUserName("jessi");
 //        sender.getSentWallMessages().add(message);

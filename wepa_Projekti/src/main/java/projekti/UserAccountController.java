@@ -38,6 +38,8 @@ public class UserAccountController {
     @Autowired
     private PictureService pictureService;
     @Autowired
+    private PictureRepository pictureRepository;
+    @Autowired
     private FriendRequestService friendRequestService;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -50,7 +52,6 @@ public class UserAccountController {
         return "redirect:/profile/" + userAccountService.getUserAccountByUserName(username).getProfileCode();
     }
 
-    
 //    @RequestMapping(value = "/userAccountNamesAutocomplete")
 //    @ResponseBody
 //    public List<UserAccount> getBooks() {
@@ -63,7 +64,6 @@ public class UserAccountController {
 ////        }
 //        return all;
 //    }
-
 //    @RequestMapping(value = "/userAccountNamesAutocomplete")
 ////        @PostMapping(path="/books", consumes="application/json", produces="application/json")
 //    @ResponseBody
@@ -104,6 +104,7 @@ public class UserAccountController {
         UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
 
         PictureAlbum pA = pictureAlbumService.getPictureAlbumByOwner(u);
+        Long pAiD = pA.getId();
         List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
         List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(u);
 
@@ -111,8 +112,11 @@ public class UserAccountController {
         model.addAttribute("loggedUserNameUpperCase", userAccountService.getUserAccountByUserName(loggedInUsername).getUserName().toUpperCase());
 
         model.addAttribute("userAccount", u);
-//        model.addAttribute("profileCode", u.getProfileCode()); 
+        //        model.addAttribute("profileCode", u.getProfileCode()); 
+;
         model.addAttribute("pictures", pictureAlbumService.getPictureAlbumByOwner(u).getPictures());
+
+        
         model.addAttribute("recievedmessages", messageService.findMax25messages(u.getId()));
         model.addAttribute("sentFriendRequests", sentFriendRequests);
         model.addAttribute("recievedFriendRequests", recievedFriendRequests);
