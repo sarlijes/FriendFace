@@ -14,7 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import projekti.interact.FriendRequest;
 import projekti.interact.FriendRequestService;
 
@@ -26,6 +29,8 @@ public class UserAccountController {
     PasswordEncoder passwordEncoder;
     @Autowired
     private UserAccountService userAccountService;
+    @Autowired
+    private UserAccountRepository userAccountRepository;
     @Autowired
     private PictureAlbumService pictureAlbumService;
     @Autowired
@@ -45,6 +50,50 @@ public class UserAccountController {
         return "redirect:/profile/" + userAccountService.getUserAccountByUserName(username).getProfileCode();
     }
 
+    
+//    @RequestMapping(value = "/userAccountNamesAutocomplete")
+//    @ResponseBody
+//    public List<UserAccount> getBooks() {
+//        List<UserAccount> all = userAccountRepository.findAll();
+//        List<String> suggestions = new ArrayList<>();
+//
+////        for (UserAccount u : all) {
+////            suggestions.add(u.toString());
+////            System.out.println(u.toString());
+////        }
+//        return all;
+//    }
+
+//    @RequestMapping(value = "/userAccountNamesAutocomplete")
+////        @PostMapping(path="/books", consumes="application/json", produces="application/json")
+//    @ResponseBody
+//    public List<String> userAccountNamesAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+//        List<String> suggestions = new ArrayList<>();
+//        suggestions.add("pentti");
+//        suggestions.add("penakontti");
+//        suggestions.add("Antti Miettinen");
+//        suggestions.add(("Nenantti Mietti"));
+//        return suggestions;
+//    }
+//	public ModelAndView searchPlants(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
+////		log.debug("entering search plants");
+//		ModelAndView modelAndView = new ModelAndView();
+//		List<PlantDTO> plants = new ArrayList<PlantDTO>(); 
+//		try {
+//			plants = specimenService.fetchPlants(searchTerm);
+//			modelAndView.setViewName("plantResults");
+////			if (plants.size() == 0 ) {
+////				log.warn("Received 0 results for search string: " + searchTerm);
+////			}
+//		} catch (Exception e) {
+////			log.error("Error happened in searchPlants endpoint", e);
+//			e.printStackTrace();
+//			modelAndView.setViewName("error");
+//		}
+//		modelAndView.addObject("plants", plants);
+////		log.debug("exiting search Plants");
+//		return modelAndView;
+//	}
     @GetMapping("/profile/{profileCode}")
     public String showProfilePage(Model model, @PathVariable String profileCode) {
 

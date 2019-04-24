@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,8 @@ import projekti.interact.FriendRequest;
 @AllArgsConstructor
 public class UserAccount extends AbstractPersistable<Long> {
 
+//    @NotEmpty
+//        @Size(min = 2, max = 50)
     private String userName;
     private String passWord;
     private String firstName;
