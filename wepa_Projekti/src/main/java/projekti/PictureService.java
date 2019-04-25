@@ -70,4 +70,8 @@ public class PictureService {
         pictureAlbumRepository.save(pictureAlbum);
         userAccountRepository.save(owner);
     }
+
+    public Picture getOne(Long id) {
+        return pictureRepository.getOne(id);
+    }
 }

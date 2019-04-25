@@ -12,4 +12,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 //    Page<Message> findAllByRecieverId(Pageable pageable, Long id);
 //    PictureAlbum getPictureAlbumByOwner(UserAccount owner);
     List<Comment> getCommentsByInteractableId(Long id);
+
+    Page<Comment> findAllByInteractableId(Pageable pageable, Long id);
+
 }

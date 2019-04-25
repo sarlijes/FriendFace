@@ -40,6 +40,12 @@ public class CommentService {
         return commentRepository.getCommentsByInteractableId(id);
     }
 
+    public Page<Comment> getMax10CommentsByInteractableId(Long id) {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("commentTimeStamp").descending());
+        Page<Comment> max10Comments = commentRepository.findAllByInteractableId(pageable, id);
+        return max10Comments;
+    }
+
 //    public Page<Message> findMax25messages(Long id) {
 //        Pageable pageable = PageRequest.of(0, 25, Sort.by("messageTimeStamp").descending());
 //        Page<Message> recievedMessages = messageRepository.findAllByRecieverId(pageable, id);

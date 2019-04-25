@@ -17,15 +17,11 @@ import projekti.UserAccount;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Comment extends AbstractPersistable<Long>{
+public class ThumbUp extends AbstractPersistable<Long>{
 
     @ManyToOne
-    private UserAccount writer;
+    private UserAccount giver;
     @ManyToOne
     private Interactable interactable;
-    private LocalDateTime commentTimeStamp;
-    @Lob
-    @Column(name = "CONTENT", length = 1500)
-    private String content;
 
 }

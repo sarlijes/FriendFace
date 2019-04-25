@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import projekti.interact.Comment;
+import projekti.interact.ThumbUp;
 
 @Entity
 @Data
@@ -28,8 +29,8 @@ public class Message extends Interactable {
     @Lob
     @Column(name = "CONTENT", length = 1500)
     private String content;
-
-//     private List <ThumbUp> messageThumbUps  = new ArrayList<>();
     @OneToMany
-     private List <Comment> messageComments  = new ArrayList<>();
+    private List<ThumbUp> messageThumbUps = new ArrayList<>();
+    @OneToMany
+    private List<Comment> messageComments = new ArrayList<>();
 }

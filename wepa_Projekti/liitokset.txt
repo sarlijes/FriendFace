@@ -2,7 +2,14 @@
 - käyttäjien etsiminen nimellä https://www.youtube.com/watch?v=FCwKQzJ4Ubw
 https://getbootstrap.com/docs/4.0/components/navbar/#forms
 
-- tykkäykset ja kommentoinnit kuville ja messageille
+
+Paja akuuteimmat:
+- syötteiden validointi
+- index metodi
+- autorisointi
+- tiedostotyyppi
+
+
 - testit
 - syötteiden validointi
 - uniikki username ja code
@@ -10,9 +17,9 @@ https://getbootstrap.com/docs/4.0/components/navbar/#forms
 - tiedostotyyppi
 - kuvan koko
 
-TOSU
-- comment
-- thumbup
+lopputarkastus:
+- käyttämättämät importit
+- controllereista suorat viittaukset repoihin pois
 
 
 Liitokset nyt:
@@ -76,8 +83,15 @@ INSERT INTO FRIEND_REQUEST (ID,  	ACCEPTED,  	FRIEND_REQUEST_TIME_STAMP,  	PENDI
 INSERT INTO FRIEND_REQUEST (ID,  	ACCEPTED,  	FRIEND_REQUEST_TIME_STAMP,  	PENDING,  	SOURCE_USER_ID,  	TARGET_USER_ID ) VALUES 
 (2, false, '2008-08-08', true, 1, 10);
 
+http://www.freestockphotos.biz/
 
-
+Eugenijus Radlinskas 
+Benjamin Miller
+Petr Kratochvil
+Free Stock Photos Library
+FSP Vintage Collection
+Mitra Mirshahidi 
+Amanda Mills
 
 
 

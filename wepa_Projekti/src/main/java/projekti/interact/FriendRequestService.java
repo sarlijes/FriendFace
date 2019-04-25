@@ -1,8 +1,10 @@
 package projekti.interact;
 
 import java.time.LocalDateTime;
+import static java.time.LocalDateTime.now;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +23,20 @@ public class FriendRequestService {
     private FriendRequestRepository friendRequestRepository;
 
     @Transactional
-    public void addFriendRequest(UserAccount sourceUser, UserAccount targetUser, LocalDateTime dateTime) {
-        FriendRequest f = new FriendRequest(sourceUser, targetUser, dateTime, false, true);
-        sourceUser.getSentFriendRequests().add(f);
-        targetUser.getRecievedFriendRequests().add(f);
-        friendRequestRepository.save(f);
+    public void addFriendRequest(FriendRequest friendRequest) {
+        friendRequestRepository.save(friendRequest);
+    }
+
+    @Transactional
+    public void addFriendRequestNativeSQL(FriendRequest friendRequest) {
+        Long sourceUserAccountId = friendRequest.getSourceUserAccount().getId();
+        Long targetUserAccountId = friendRequest.getTargetUserAccount().getId();
+        LocalDateTime dateTime = now();
+        Boolean pending = true;
+        Boolean accepted = false;
+        Long id = new Random().nextLong();
+
+        friendRequestRepository.insertFriendRequest(id,accepted,dateTime,pending, sourceUserAccountId, targetUserAccountId);
     }
 
     @Transactional
@@ -53,4 +64,3 @@ public class FriendRequestService {
         return friendRequestRepository.getOne(id);
     }
 }
-

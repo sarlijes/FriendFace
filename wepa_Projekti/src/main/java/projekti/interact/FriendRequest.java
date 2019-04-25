@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import projekti.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -21,11 +22,11 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 public class FriendRequest extends AbstractPersistable<Long> {
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "sourceUserAccount_id")
     private UserAccount sourceUserAccount;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "targetUserAccount_id")
     private UserAccount targetUserAccount;
 

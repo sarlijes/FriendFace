@@ -25,13 +25,14 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().sameOrigin();
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/signup").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .permitAll()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/homepage")
                 
                 .and()
                 .logout()
