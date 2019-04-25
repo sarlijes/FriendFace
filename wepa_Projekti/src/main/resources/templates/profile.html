@@ -38,21 +38,21 @@
                                 <div class="collapse navbar-collapse" id="main-navigation">
 
 
-<!--                                    <input id="userAccount_Name" type="text" class="form-control" aria-label="Sizing example input" 
-                                           aria-describedby="inputGroup-sizing-sm" name="description">-->
+                                    <!--                                    <input id="userAccount_Name" type="text" class="form-control" aria-label="Sizing example input" 
+                                                                               aria-describedby="inputGroup-sizing-sm" name="description">-->
 
-                                        <!--                                        <input id="userAccount_Name" type="text" class="form-control" aria-label="Sizing example input" 
-                                                                                   aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{plantName}">-->
+                                    <!--                                        <input id="userAccount_Name" type="text" class="form-control" aria-label="Sizing example input" 
+                                                                               aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{plantName}">-->
 
 
 
-                                         <form class="form-inline" action="#" th:action="@{/searchUserAccounts}" method="GET">
-                                            <input list="Plant_Search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-                                             <datalist id="Plant_Search">
-                                        <option value="Oak"></option>
-                                          </datalist>
-                                        <button type="submit">Search</button>
-                                                                            </form>
+                                    <form class="form-inline" action="#" th:action="@{/searchUserAccounts}" method="GET">
+                                        <input list="Plant_Search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
+                                            <datalist id="Plant_Search">
+                                                <option value="Oak"></option>
+                                            </datalist>
+                                            <button type="submit">Search</button>
+                                    </form>
 
 
 
@@ -87,159 +87,176 @@
                                             <input style="width:200px;"  type="submit" value="Write to the wall" />
                                         </form>
 
-                                        <table>
-                                            <tr th:each="message : ${recievedmessages}">
-                                                <th th:text="${message.sender.firstName}">firstName</th>
-                                                <th th:text="${message.sender.lastName}">lastName</th>
-                                                <th style="width:200px; padding:15px;" th:text="${#temporals.format(message.messageTimeStamp, 'dd-MM-yyyy HH:mm')}">messageTimeStamp</th>
-                                                <th th:text="${message.content}">content</th>
-                                            </tr>
-                                        </table>
-                                        
-                                         
-
-                                        <!--                                        <div sec:authorize=${hasAuthority('JESSI')}>
-                                            <p>näkyy vain omassa profiilissa 11111ff55</p>
-                                        </div>
-
-                                        <div sec:authorize=${hasAuthority('userAccount.userName')}>
-                                            <p>näkyy vain omassa profiilissa 11111</p>
-                                        </div>
-
-                                        <div sec:authorize=${hasAuthority('${#strings.toUpperCase(userAccount.userName)}')}>
-                                            <p>näkyy vain omassa profiilissa 22222</p>
-                                        </div>
-
-                                        <div sec:authorize="hasAuthority('loggedUserNameUpperCase')">
-                                            <p>salaisuus 49</p>
-                                        </div>
-
-                                        <div th:if="${userAccount.userName == logged.userName}">
-                                            <p>salainen viesti 59</p>
-                                        </div>
-
-                                        <div sec:authorize="hasRole('USER')">Text visible to user.</div>
-                                        <div sec:authorize="hasRole('loggedUserNameUpperCase')">Text visible to loggedUserNameUpperCase.</div>
-                                        <div sec:authorize="isAuthenticated()">                                           Text visible only to authenticated users.</div>
-                                        <br>
-                                            Authenticated username:
-                                            <div sec:authentication="name"></div>
-                                            Authenticated user roles:
-                                            <div sec:authentication="principal.authorities"></div>
+                                        <section th:each="message : ${recievedmessages}">
                                             <br>
-                                                <div th:text="'The name of the owner of this profile user is    ' + ${userAccount.userName}"></div>
-                                                <div th:text="'The name of the logged user is    ' + ${logged.userName}"></div>
-                                        
-                                        th:if="${userAccount.userName == logged.userName}">
-                                        -->
+                                                <p th:text="${message.sender.firstName}+' ' + ${message.sender.lastName}
+                                                   + ' ' + ${#temporals.format(message.messageTimeStamp, 'dd-MM-yyyy HH:mm')} + ' wrote: '"
+                                            </p>
+                                            <p th:text="${message.content}"></p>
+                                            <table>
+                                                <th>
+                                                    <form th:action="@{/{profileCode}/message/{id}/addComment(id=${message.id})}" th:method="POST">
+                                                        <input type="text" name="commentContent" id="caption" placeholder="..."/>
+                                                        <input type="submit" value="Add comment" />
+                                                    </form>
+                                                </th>
+                                                <th>
+                                                    <form th:action="@{/{profileCode}/message/{id}/addThumbUp(id=${message.id})}" th:method="POST">
+                                                        <input type="submit" value="Like" />
+                                                    </form>
+                                                </th>
+                                            </table>
+                                            <ul style="list-style: none;">
+                                                <br>
+                                                    <li th:each="comment: ${message.messageComments}" th:text="${comment.content}"></li>
+                                            </ul>
+                                    </section>
 
 
 
+
+                                    <!-- <div sec:authorize=${hasAuthority('JESSI')}>
+                                        <p>näkyy vain omassa profiilissa 11111ff55</p>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-3" th:if="${userAccount.userName == logged.userName}">
-                                        <h5>Sent Friend Requests</h5>
-                                        <ul th:each="friendrequest: ${sentFriendRequests}" >
-                                            <li th:if="${friendrequest.pending} == true">
-                                                <span th:text="${friendrequest.targetUserAccount.firstName}">name</span>
-                                                <span th:text="${friendrequest.targetUserAccount.lastName}">name</span>
-                                                <span th:if="${friendrequest.pending} == true">   (pending)</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-3" th:if="${userAccount.userName == logged.userName}">
-                                        <h5>Recieved Friend Requests</h5>
-                                        <ul th:each="friendrequest : ${recievedFriendRequests}" >
-                                            <li th:if="${friendrequest.pending} == true">
-                                                <span th:text="${friendrequest.sourceUserAccount.firstName}">name</span>
-                                                <span th:text="${friendrequest.sourceUserAccount.lastName}">name</span>
-                                                <form th:action="@{/friendrequest/reject/{id}(id=${friendrequest.id})}" th:method="POST">
-                                                    <input type="submit" id="reject" value="Reject"/></form>
-                                                <form th:action="@{/friendrequest/approve/{id}(id=${friendrequest.id})}" th:method="POST">
-                                                    <input type="submit" id="approve" value="Approve"/></form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <h5>Friends</h5>
-                                        <ul th:each="friendrequest : ${recievedFriendRequests}">
 
-                                            <li th:if="${friendrequest.accepted} == true">
-                                                <a th:href="@{/profile/{profileCode}(profileCode=${friendrequest.sourceUserAccount.profileCode})}" 
-                                                   th:text="${friendrequest.sourceUserAccount.firstName}">name</a>
-                                                <a th:href="@{/profile/{profileCode}(profileCode=${friendrequest.sourceUserAccount.profileCode})}" 
-                                                   th:text="${friendrequest.sourceUserAccount.lastName}">name</a>
-                                                <div  th:if="${userAccount.userName == logged.userName}">
-                                                    <form th:action="@{/friendrequest/reject/{id}(id=${friendrequest.id})}" th:method="POST">
-                                                        <input type="submit" id="reject" value="Remove from friends"/></form></div>
-                                            </li>
-                                        </ul>
-                                        <ul  th:each="friendrequest : ${sentFriendRequests}">
-                                            <li th:if="${friendrequest.accepted} == true">
-                                                <a th:href="@{/profile/{profileCode}(profileCode=${friendrequest.targetUserAccount.profileCode})}" 
-                                                   th:text="${friendrequest.targetUserAccount.firstName}">name</a>
-                                                <a th:href="@{/profile/{profileCode}(profileCode=${friendrequest.sourceUserAccount.profileCode})}" 
-                                                   th:text="${friendrequest.targetUserAccount.lastName}">name</a>
-                                                <div  th:if="${userAccount.userName == logged.userName}">
+                                    <div sec:authorize=${hasAuthority('userAccount.userName')}>
+                                        <p>näkyy vain omassa profiilissa 11111</p>
+                                    </div>
+
+                                    <div sec:authorize=${hasAuthority('${#strings.toUpperCase(userAccount.userName)}')}>
+                                        <p>näkyy vain omassa profiilissa 22222</p>
+                                    </div>
+
+                                    <div sec:authorize="hasAuthority('loggedUserNameUpperCase')">
+                                        <p>salaisuus 49</p>
+                                    </div>
+
+                                    <div th:if="${userAccount.userName == logged.userName}">
+                                        <p>salainen viesti 59</p>
+                                    </div>
+
+                                    <div sec:authorize="hasRole('USER')">Text visible to user.</div>
+                                    <div sec:authorize="hasRole('loggedUserNameUpperCase')">Text visible to loggedUserNameUpperCase.</div>
+                                    <div sec:authorize="isAuthenticated()">                                           Text visible only to authenticated users.</div>
+                                    <br>
+                                        Authenticated username:
+                                        <div sec:authentication="name"></div>
+                                        Authenticated user roles:
+                                        <div sec:authentication="principal.authorities"></div>
+                                        <br>
+                                            <div th:text="'The name of the owner of this profile user is    ' + ${userAccount.userName}"></div>
+                                            <div th:text="'The name of the logged user is    ' + ${logged.userName}"></div>
+                                    
+                                    th:if="${userAccount.userName == logged.userName}">
+                                    -->
+
+
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3" th:if="${userAccount.userName == logged.userName}">
+                                    <h5>Sent Friend Requests</h5>
+                                    <ul th:each="friendrequest: ${sentFriendRequests}" >
+                                        <li th:if="${friendrequest.pending} == true">
+                                            <span th:text="${friendrequest.targetUserAccount.firstName}">name</span>
+                                            <span th:text="${friendrequest.targetUserAccount.lastName}">name</span>
+                                            <span th:if="${friendrequest.pending} == true">   (pending)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3" th:if="${userAccount.userName == logged.userName}">
+                                    <h5>Recieved Friend Requests</h5>
+                                    <ul th:each="friendrequest : ${recievedFriendRequests}" >
+                                        <li th:if="${friendrequest.pending} == true">
+                                            <span th:text="${friendrequest.sourceUserAccount.firstName}">name</span>
+                                            <span th:text="${friendrequest.sourceUserAccount.lastName}">name</span>
+                                            <form th:action="@{/friendrequest/reject/{id}(id=${friendrequest.id})}" th:method="POST">
+                                                <input type="submit" id="reject" value="Reject"/></form>
+                                            <form th:action="@{/friendrequest/approve/{id}(id=${friendrequest.id})}" th:method="POST">
+                                                <input type="submit" id="approve" value="Approve"/></form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <h5>Friends</h5>
+                                    <h5>Friends</h5>
+                                    <ul th:each="friendrequest : ${recievedFriendRequests}">
+
+                                        <li th:if="${friendrequest.accepted} == true">
+
+                                            <a th:href="@{/profile/{profileCode}(profileCode=${friendrequest.sourceUserAccount.profileCode})}" 
+                                               th:text="${friendrequest.sourceUserAccount.firstName} + ' ' + ${friendrequest.sourceUserAccount.lastName}" >name</a>
+
+                                            <div  th:if="${userAccount.userName == logged.userName}">
                                                 <form th:action="@{/friendrequest/reject/{id}(id=${friendrequest.id})}" th:method="POST">
                                                     <input type="submit" id="reject" value="Remove from friends"/></form></div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                        </li>
+                                    </ul>
+                                    <ul  th:each="friendrequest : ${sentFriendRequests}">
+                                        <li th:if="${friendrequest.accepted} == true">
+
+                                            <a th:href="@{/profile/{profileCode}(profileCode=${friendrequest.targetUserAccount.profileCode})}" 
+                                               th:text="${friendrequest.targetUserAccount.firstName} + ' ' + ${friendrequest.targetUserAccount.lastName}" >name</a>
+
+                                            <div  th:if="${userAccount.userName == logged.userName}">
+                                                <form th:action="@{/friendrequest/reject/{id}(id=${friendrequest.id})}" th:method="POST">
+                                                    <input type="submit" id="reject" value="Remove from friends"/></form></div>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12"><h2>Picture Gallery</h2> <br>
-                                            <tr th:if="${pictures.empty}">
-                                                <td colspan="4">No pictures</td>
+                            </div>
+                            <div class="row">
+                                <div class="col-12"><h2>Picture Gallery</h2> <br>
+                                        <tr th:if="${pictures.empty}">
+                                            <td colspan="4">No pictures</td>
+                                        </tr>
+                                        <tbody>
+                                            <tr th:each="picture : ${pictures}" >
+
+                                                <a th:href="@{/picture/{id}/(id=${picture.id})}"><img th:src="@{/picture/{id}/(id=${picture.id})}" style="width:200px; border-radius:5px;"/>
+                                                </a>
+
+                                                <td th:if="${userAccount.userName == logged.userName}">
+                                                    <form th:action="@{/picture/{id}(id=${picture.id})}" th:method="makeprofilepicture">
+                                                        <input type="submit" id="makeprofilepicture" value="Set to profile pic"/></form></td> 
+                                                <td th:if="${userAccount.userName == logged.userName}">
+                                                    <form th:action="@{/picture/{id}(id=${picture.id})}" th:method="delete">
+                                                        <input type="submit" id="delete" value="Delete"/></form></td>
+
                                             </tr>
-                                            <tbody>
-                                                <tr th:each="picture : ${pictures}" >
+                                        </tbody>
 
 
-                                                    <a th:href="@{/picture/{id}/(id=${picture.id})}"><img th:src="@{/picture/{id}/(id=${picture.id})}" style="width:200px; border-radius:5px;"/>
-                                                    </a>
+                                        <div th:if="${userAccount.userName == logged.userName}">
+                                            <h4>Add new picture</h4>
+                                            <form method="POST" th:action="@{/profile/{profileCode}(profileCode=${userAccount.profileCode})}"
+                                                  enctype="multipart/form-data">
+                                                <input type="file" name="file" id="file" />Caption:
+                                                <input type="text" name="caption" id="caption" placeholder="..."/>
+                                                <input type="submit" value="Add!" />
+                                            </form>
 
-                                                    <td th:if="${userAccount.userName == logged.userName}">
-                                                        <form th:action="@{/picture/{id}(id=${picture.id})}" th:method="makeprofilepicture">
-                                                            <input type="submit" id="makeprofilepicture" value="Set to profile pic"/></form></td> 
-                                                    <td th:if="${userAccount.userName == logged.userName}">
-                                                        <form th:action="@{/picture/{id}(id=${picture.id})}" th:method="delete">
-                                                            <input type="submit" id="delete" value="Delete"/></form></td>
+                                            <br><br>
+                                                    </div>
+                                                    </div>
+                                                    </main>
 
-                                                </tr>
-                                            </tbody>
-
-
-                                            <div th:if="${userAccount.userName == logged.userName}">
-                                                <h4>Add new picture</h4>
-                                                <form method="POST" th:action="@{/profile/{profileCode}(profileCode=${userAccount.profileCode})}"
-                                                      enctype="multipart/form-data">
-                                                    <input type="file" name="file" id="file" />Caption:
-                                                    <input type="text" name="caption" id="caption" placeholder="..."/>
-                                                    <input type="submit" value="Add!" />
-                                                </form>
-
-                                                <br><br>
-                                                        </div>
-                                                        </div>
-                                                        </main>
-
-                                                        <div class="col-6"></div> <div class="col-lg-4 col-md-4 col-sm-12"></div>
-                                                        <!-- Optional JavaScript -->
-                                                        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-                                                        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                                                                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                                                        crossorigin="anonymous"></script>
-                                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-                                                                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-                                                        crossorigin="anonymous"></script>
-                                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                                                                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                                                        crossorigin="anonymous"></script>
-                                                        </body>
-                                                        </html>
+                                                    <div class="col-6"></div> <div class="col-lg-4 col-md-4 col-sm-12"></div>
+                                                    <!-- Optional JavaScript -->
+                                                    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+                                                    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                                                            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                                                    crossorigin="anonymous"></script>
+                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                                                            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                                                    crossorigin="anonymous"></script>
+                                                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                                                            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                                                    crossorigin="anonymous"></script>
+                                                    </body>
+                                                    </html>

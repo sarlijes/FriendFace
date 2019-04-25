@@ -13,28 +13,43 @@ import projekti.MessageService;
 import projekti.UserAccount;
 import projekti.UserAccountService;
 import projekti.Interactable;
+import projekti.Message;
+import projekti.MessageRepository;
 
 @Controller
 public class CommentController {
 
     @Autowired
     private UserAccountService userAccountService;
-
+    @Autowired
+    private MessageService messageService;
+    @Autowired
+    private MessageRepository messageRepository;
     @Autowired
     private CommentService commentService;
 
-    @PostMapping("/profile/{profileCode}/comment/{interactableId}")
-    public String addComment(@PathVariable String profileCode, @PathVariable String interactableId, @RequestParam String content) {
+    @PostMapping("/{profileCode}/message/{id}/addComment")
+    public String addComment(@PathVariable String profileCode, @PathVariable Long id, @RequestParam String commentContent) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
+        Message m = messageRepository.getOne(id);
 
         LocalDateTime dateTime = now();
 //        UserAccount writer = userAccountService.getUserAccountByProfileCode(profileCode);
         UserAccount writer = userAccountService.getUserAccountByUserName(loggedInUsername);
-        Interactable interactable = new Interactable();
-        Comment comment = new Comment(writer, null, dateTime, content);
+
+        Comment comment = new Comment(writer, m, dateTime, commentContent);
         commentService.addComment(comment);
         return "redirect:/profile/" + profileCode;
     }
 }
+/*   @PostMapping("/message/{id}/addThumbUp")
+                                                    <form th:action="@{/message/{id}/addComment(id=${message.id})}" th:method="POST">
+                                                        <input type="text" name="comment" id="caption" placeholder="..."/>
+                                                        <input type="submit" value="Add comment" />
+                                                    </form>
+                                                </th>
+                                                <th>
+                                                    <form th:action="@{/message/{id}/addThumbUp(id=${message.id})}" th:method="POST">
+ */

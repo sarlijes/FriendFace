@@ -1,6 +1,7 @@
 package projekti.interact;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +14,7 @@ import projekti.MessageRepository;
 import projekti.UserAccount;
 import projekti.UserAccountRepository;
 import projekti.UserAccountService;
+
 @Service
 public class CommentService {
 
@@ -21,17 +23,21 @@ public class CommentService {
 
     @Autowired
     private CommentController commentController;
-    
+
     @Autowired
     private CommentRepository commentRepository;
 
     @Transactional
     public void addComment(Comment comment) {
-        
+
         commentRepository.save(comment);
 //        UserAccount u = userAccountRepository.getUserAccountByUserName("jessi");
 //        sender.getSentWallMessages().add(message);
 //        u.getRecievedWallMessages().add(message);
+    }
+
+    public List<Comment> getCommentsByInteractableId(Long id) {
+        return commentRepository.getCommentsByInteractableId(id);
     }
 
 //    public Page<Message> findMax25messages(Long id) {

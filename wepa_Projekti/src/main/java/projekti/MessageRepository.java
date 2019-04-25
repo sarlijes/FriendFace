@@ -10,5 +10,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
 //    Message findAllByRecieverIdOrderByMessageTimeStampDesc(Long id);
 //    Message findAllByRecieverId(Pageable pageable, Long id);
-    Page<Message> findAllByRecieverId(Pageable pageable, Long id);
+    Page<Message> findMax25ByRecieverId(Pageable pageable, Long id);
+
+    List<Message> findAllByRecieverId(Long id);
 }

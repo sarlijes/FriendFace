@@ -6,10 +6,9 @@ https://getbootstrap.com/docs/4.0/components/navbar/#forms
 - testit
 - syötteiden validointi
 - uniikki username ja code
-- metoditason autorisointi  @Secured("profileCode")
+- metoditason autorisointi @Secured("profileCode")
 - tiedostotyyppi
 - kuvan koko
-- kaveriprofiilin linkki tai pelkkä etunimi
 
 TOSU
 - comment

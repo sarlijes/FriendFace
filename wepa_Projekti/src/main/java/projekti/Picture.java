@@ -1,5 +1,7 @@
 package projekti;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -8,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import projekti.interact.Comment;
 
 @Data
 @NoArgsConstructor
@@ -27,5 +30,6 @@ public class Picture extends Interactable {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private PictureAlbum pictureAlbum;
-
+    @OneToMany
+    private List<Comment> pictureComments = new ArrayList<>();
 }

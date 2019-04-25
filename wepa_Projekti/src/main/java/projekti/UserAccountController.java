@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import projekti.interact.FriendRequest;
 import projekti.interact.FriendRequestService;
+import projekti.interact.CommentService;
 
 @Controller
 
@@ -40,6 +42,8 @@ public class UserAccountController {
     @Autowired
     private PictureRepository pictureRepository;
     @Autowired
+    private CommentService commentService;
+    @Autowired
     private FriendRequestService friendRequestService;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -48,61 +52,16 @@ public class UserAccountController {
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-//        showProfilePage(model, username);
         return "redirect:/profile/" + userAccountService.getUserAccountByUserName(username).getProfileCode();
     }
 
-//    @RequestMapping(value = "/userAccountNamesAutocomplete")
-//    @ResponseBody
-//    public List<UserAccount> getBooks() {
-//        List<UserAccount> all = userAccountRepository.findAll();
-//        List<String> suggestions = new ArrayList<>();
-//
-////        for (UserAccount u : all) {
-////            suggestions.add(u.toString());
-////            System.out.println(u.toString());
-////        }
-//        return all;
-//    }
-//    @RequestMapping(value = "/userAccountNamesAutocomplete")
-////        @PostMapping(path="/books", consumes="application/json", produces="application/json")
-//    @ResponseBody
-//    public List<String> userAccountNamesAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
-//        List<String> suggestions = new ArrayList<>();
-//        suggestions.add("pentti");
-//        suggestions.add("penakontti");
-//        suggestions.add("Antti Miettinen");
-//        suggestions.add(("Nenantti Mietti"));
-//        return suggestions;
-//    }
-//	public ModelAndView searchPlants(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
-////		log.debug("entering search plants");
-//		ModelAndView modelAndView = new ModelAndView();
-//		List<PlantDTO> plants = new ArrayList<PlantDTO>(); 
-//		try {
-//			plants = specimenService.fetchPlants(searchTerm);
-//			modelAndView.setViewName("plantResults");
-////			if (plants.size() == 0 ) {
-////				log.warn("Received 0 results for search string: " + searchTerm);
-////			}
-//		} catch (Exception e) {
-////			log.error("Error happened in searchPlants endpoint", e);
-//			e.printStackTrace();
-//			modelAndView.setViewName("error");
-//		}
-//		modelAndView.addObject("plants", plants);
-////		log.debug("exiting search Plants");
-//		return modelAndView;
-//	}
     @GetMapping("/profile/{profileCode}")
     public String showProfilePage(Model model, @PathVariable String profileCode) {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
 
 //        createMockRequests();        
         UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
-
         PictureAlbum pA = pictureAlbumService.getPictureAlbumByOwner(u);
         Long pAiD = pA.getId();
         List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
@@ -110,14 +69,17 @@ public class UserAccountController {
 
         model.addAttribute("logged", userAccountService.getUserAccountByUserName(loggedInUsername));
         model.addAttribute("loggedUserNameUpperCase", userAccountService.getUserAccountByUserName(loggedInUsername).getUserName().toUpperCase());
-
         model.addAttribute("userAccount", u);
-        //        model.addAttribute("profileCode", u.getProfileCode()); 
-;
         model.addAttribute("pictures", pictureAlbumService.getPictureAlbumByOwner(u).getPictures());
 
-        
-        model.addAttribute("recievedmessages", messageService.findMax25messages(u.getId()));
+        List<Message> viestit = messageService.findAllMessages(u.getId());
+        Page<Message> recievedmessages = messageService.findMax25messages(u.getId());
+
+        for (Message m : recievedmessages) {
+            m.setMessageComments(commentService.getCommentsByInteractableId(m.getId()));
+        }
+
+        model.addAttribute("recievedmessages", recievedmessages);
         model.addAttribute("sentFriendRequests", sentFriendRequests);
         model.addAttribute("recievedFriendRequests", recievedFriendRequests);
 

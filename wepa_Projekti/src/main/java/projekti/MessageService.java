@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
+import projekti.interact.Comment;
 
 @Service
 public class MessageService {
@@ -19,6 +20,7 @@ public class MessageService {
     private MessageRepository messageRepository;
     @Autowired
     private UserAccountRepository userAccountRepository;
+    List<Comment> getMessagesByInteractableId;
 
     @Transactional
     public void addWallMessage(UserAccount sender, UserAccount reciever, LocalDateTime dateTime, String content) {
@@ -31,7 +33,12 @@ public class MessageService {
 
     public Page<Message> findMax25messages(Long id) {
         Pageable pageable = PageRequest.of(0, 25, Sort.by("messageTimeStamp").descending());
-        Page<Message> recievedMessages = messageRepository.findAllByRecieverId(pageable, id);
+        Page<Message> recievedMessages = messageRepository.findMax25ByRecieverId(pageable, id);
+        return recievedMessages;
+    }
+
+    public List<Message> findAllMessages(Long id) {
+        List<Message> recievedMessages = messageRepository.findAllByRecieverId(id);
         return recievedMessages;
     }
 
