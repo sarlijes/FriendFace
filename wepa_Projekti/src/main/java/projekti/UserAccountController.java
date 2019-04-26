@@ -3,6 +3,7 @@ package projekti;
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
 import java.util.*;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +13,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,9 +56,6 @@ public class UserAccountController {
     public String homepage() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println("///////////////////////////////");
-        System.out.println(username);
-        System.out.println("///////////////////////////////");
         return "redirect:/profile/" + userAccountService.getUserAccountByUserName(username).getProfileCode();
     }
 
@@ -112,31 +112,30 @@ public class UserAccountController {
         return "profile";
     }
 
-//    public void createMockRequests() {
-//        LocalDateTime dateTime = now();
-//        friendRequestService.addFriendRequest(userAccountService.getUserAccountById(Long.valueOf(1)), userAccountService.getUserAccountById(Long.valueOf(7)), dateTime);
-//        friendRequestService.addFriendRequest(userAccountService.getUserAccountById(Long.valueOf(1)), userAccountService.getUserAccountById(Long.valueOf(10)), dateTime);
-//    }
     @PostMapping("/signup")
-    public String create(@RequestParam String userName, @RequestParam String passWord, @RequestParam String firstName, @RequestParam String lastName,
-            @RequestParam String profileCode) {
-        if (userAccountService.getUserAccountByUserName(userName) != null) {
-            return "redirect:/signup";
+    public String create(@Valid @ModelAttribute UserAccount userAccount, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "login";
         }
-        userAccountService.addUserAccount(userName, passwordEncoder.encode(passWord), firstName, lastName, profileCode);
-        pictureAlbumService.addPictureAlbum(userAccountService.getIdByProfileCode(profileCode));
-        return "redirect:/";
+        userAccount.setPassWord(passwordEncoder.encode(userAccount.getPassWord()));
+        userAccountService.addUserAccount(userAccount);
+        pictureAlbumService.addPictureAlbum(userAccountService.getIdByProfileCode(userAccount.getProfileCode()));
+        return "redirect:/login";
     }
 
     @GetMapping("/signup")
-    public String showSignUpPage() {
+    public String showSignUpPage(@ModelAttribute UserAccount userAccount) {
         return "signup";
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logOut() {
-        return "login";
+        return "redirect:/login";
     }
+    
+
+    
+//    login?logout
 
     public boolean userNameisValid(String userName) {
 
@@ -154,3 +153,15 @@ public class UserAccountController {
     }
 
 }
+/*
+        @PostMapping("/signup")
+    public String create(@RequestParam String userName, @RequestParam String passWord, @RequestParam String firstName, @RequestParam String lastName,
+            @RequestParam String profileCode) {
+        if (userAccountService.getUserAccountByUserName(userName) != null) {
+            return "redirect:/signup";
+        }
+        userAccountService.addUserAccount(userName, passwordEncoder.encode(passWord), firstName, lastName, profileCode);
+        pictureAlbumService.addPictureAlbum(userAccountService.getIdByProfileCode(profileCode));
+        return "redirect:/";
+    }
+ */

@@ -12,9 +12,9 @@ public class UserAccountService {
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-    public void addUserAccount(String userName, String passWord, String firstName, String lastName, String profileCode) {
-        userAccountRepository.save(new UserAccount(userName, passWord, firstName, lastName, profileCode, null, null, null));
-        userAccountRepository.getUserAccountByUserName(userName).setPictureAlbum(new PictureAlbum());
+    public void addUserAccount(UserAccount userAccount) {
+        userAccountRepository.save(userAccount);
+        userAccount.setPictureAlbum(new PictureAlbum());
     }
 
     public Long getIdByProfileCode(String profileCode) {

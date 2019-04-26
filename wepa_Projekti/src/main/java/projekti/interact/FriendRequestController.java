@@ -30,13 +30,6 @@ public class FriendRequestController {
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-//    public String createPictureAlbum(Long sourceUserAccountId, Long targetUserAccountId) {
-//        UserAccount sourceUser = userAccountService.getUserAccountById(sourceUserAccountId);
-//        UserAccount targetUser = userAccountService.getUserAccountById(targetUserAccountId);
-//        LocalDateTime dateTime = now();
-//        friendRequestService.addFriendRequest(sourceUser, targetUser, dateTime);
-//        return "redirect:/";
-//    }
     @PostMapping("/friendrequest/reject/{id}")
     public String reject(@PathVariable Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -57,23 +50,27 @@ public class FriendRequestController {
 
     @Transactional
     @PostMapping("/profile/{profileCode}/sendFriendRequest")
-    public String sendFriendRequest(@PathVariable String profileCode, @ModelAttribute("userAccount") UserAccount userAccount, Model model) {
+    public String sendFriendRequest(@PathVariable String profileCode, @RequestParam Long chosenId, Model model) {
+        System.out.println("chosenId on:" + chosenId);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
+
         UserAccount sourceUserAccount = userAccountService.getUserAccountByUserName(loggedInUsername);
-        UserAccount targetUserAccout = userAccount;
-//        UserAccount targetUserAccount = userAccountService.getUserAccountByProfileCode(targetProfileCode);
-// https://stackoverflow.com/questions/49051830/how-to-extract-the-selected-value-from-a-datalist-with-thymeleaf-and-spring
-        LocalDateTime dateTime = now();
-        FriendRequest friendRequest = new FriendRequest(sourceUserAccount, targetUserAccout, dateTime, true, false);
+        UserAccount targetUserAccout = userAccountService.getUserAccountById(chosenId);
+
+//        FriendRequest friendRequest = new FriendRequest(sourceUserAccount, targetUserAccout, now(), true, false);
 //        sourceUserAccount.getSentFriendRequests().add(friendRequest);
 //        targetUserAccout.getRecievedFriendRequests().add(friendRequest);
+        FriendRequest f = new FriendRequest(sourceUserAccount, targetUserAccout, now(), false, true);
 
+//        FriendRequest eka = new FriendRequest(userAccountService.getUserAccountById(Long.valueOf(5)), userAccountService.getUserAccountById(Long.valueOf(19)), now(), true, false);
         System.out.println("lähettäjä:");
-        System.out.println(sourceUserAccount.getId());
+        System.out.println(sourceUserAccount.getUserName());
         System.out.println("vastaanottaja:");
-        System.out.println(targetUserAccout.getId());
-        
+        System.out.println(targetUserAccout.getUserName());
+
+        friendRequestService.addFriendRequest(f);
+
 //        userAccountRepository.save(sourceUserAccount);
 //        userAccountRepository.save(targetUserAccout);
 //        friendRequestService.addFriendRequestNativeSQL(friendRequest);
@@ -81,3 +78,25 @@ public class FriendRequestController {
         return "redirect:/profile/" + profileCode;
     }
 }
+/*
+// https://stackoverflow.com/questions/49051830/how-to-extract-the-selected-value-from-a-datalist-with-thymeleaf-and-spring
+
+(cascade=CascadeType.ALL) vanhemman viitteeseen childiin
+(cascade = {CascadeType.ALL})
+
+ensin tallenna lapsi
+
+sitten parentti
+
+
+
+
+//    public String createPictureAlbum(Long sourceUserAccountId, Long targetUserAccountId) {
+//        UserAccount sourceUser = userAccountService.getUserAccountById(sourceUserAccountId);
+//        UserAccount targetUser = userAccountService.getUserAccountById(targetUserAccountId);
+//        LocalDateTime dateTime = now();
+//        friendRequestService.addFriendRequest(sourceUser, targetUser, dateTime);
+//        return "redirect:/";
+//    }
+
+*/

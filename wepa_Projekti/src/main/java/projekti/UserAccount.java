@@ -25,7 +25,6 @@ public class UserAccount extends AbstractPersistable<Long> {
     @Size(min = 2, max = 50)
     private String userName;
     @NotEmpty
-    @Size(min = 2, max = 50)
     private String passWord;
     @NotEmpty
     @Size(min = 2, max = 50)
