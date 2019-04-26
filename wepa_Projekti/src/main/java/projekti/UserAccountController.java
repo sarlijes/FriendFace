@@ -27,7 +27,7 @@ import projekti.interact.CommentService;
 @Controller
 
 public class UserAccountController {
-    
+
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -48,9 +48,9 @@ public class UserAccountController {
     private FriendRequestService friendRequestService;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-    
+
     @GetMapping("/homepage")
-    public String index() {
+    public String homepage() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         System.out.println("///////////////////////////////");
@@ -58,7 +58,7 @@ public class UserAccountController {
         System.out.println("///////////////////////////////");
         return "redirect:/profile/" + userAccountService.getUserAccountByUserName(username).getProfileCode();
     }
-    
+
     @GetMapping("/profile/{profileCode}")
     public String showProfilePage(Model model, @PathVariable String profileCode) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -71,37 +71,37 @@ public class UserAccountController {
         List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
         List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(u);
         List<UserAccount> allUserAccounts = userAccountService.getAllUserAccounts();
-        
+
         model.addAttribute("logged", userAccountService.getUserAccountByUserName(loggedInUsername));
         model.addAttribute("loggedUserNameUpperCase", userAccountService.getUserAccountByUserName(loggedInUsername).getUserName().toUpperCase());
         model.addAttribute("userAccount", u);
         model.addAttribute("allUserAccounts", allUserAccounts);
-        
+
         Page<Message> recievedmessages = messageService.findMax25messages(u.getId());
-        
+
         List<Picture> pictures = pictureAlbumService.getPictureAlbumByOwner(u).getPictures();
-        
+
         for (Message m : recievedmessages) {
             m.setMessageComments(commentService.getCommentsByInteractableId(m.getId()));
         }
-//        List<Comment> ploi = new ArrayList<>();
+//        List<Comment> max10Comments = new ArrayList<>();
         for (Picture p : pictures) {
 //            p.setPictureComments(commentService.getCommentsByInteractableId(p.getId()));
 //            Page<Comment> max10pictureComments = commentService.getMax10CommentsByInteractableId(p.getId());
 //            System.out.println(max10pictureComments.getTotalElements() + " max10pictureComments total elements");
 //            max10pictureComments.stream()
 //                    .map(comment -> ploi.add(comment));
-//            p.setPictureComments(ploi);
+//            p.setPictureComments(max10Comments);
             p.setPictureComments(commentService.getCommentsByInteractableId(p.getId()));
         }
-//        System.out.println(ploi.size());
+//        System.out.println(max10Comments.size());
 //        System.out.println("+++++++++++++++++++++++++++");
-        
+
         model.addAttribute("pictures", pictures);
         model.addAttribute("recievedmessages", recievedmessages);
         model.addAttribute("sentFriendRequests", sentFriendRequests);
         model.addAttribute("recievedFriendRequests", recievedFriendRequests);
-        
+
         for (Picture pic : pictureAlbumService.getPictureAlbumByOwner(u).getPictures()) {
             Long profilePicId;
             if (pic.getIsProfilePicture() == true) {
@@ -111,13 +111,12 @@ public class UserAccountController {
         }
         return "profile";
     }
-    
+
 //    public void createMockRequests() {
 //        LocalDateTime dateTime = now();
 //        friendRequestService.addFriendRequest(userAccountService.getUserAccountById(Long.valueOf(1)), userAccountService.getUserAccountById(Long.valueOf(7)), dateTime);
 //        friendRequestService.addFriendRequest(userAccountService.getUserAccountById(Long.valueOf(1)), userAccountService.getUserAccountById(Long.valueOf(10)), dateTime);
 //    }
-    
     @PostMapping("/signup")
     public String create(@RequestParam String userName, @RequestParam String passWord, @RequestParam String firstName, @RequestParam String lastName,
             @RequestParam String profileCode) {
@@ -128,14 +127,30 @@ public class UserAccountController {
         pictureAlbumService.addPictureAlbum(userAccountService.getIdByProfileCode(profileCode));
         return "redirect:/";
     }
-    
+
     @GetMapping("/signup")
     public String showSignUpPage() {
         return "signup";
     }
-    
+
     @GetMapping("/logout")
     public String logOut() {
         return "login";
     }
+
+    public boolean userNameisValid(String userName) {
+
+        if (userAccountService.getUserAccountByUserName(userName) != null) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean profileCodeisValid(String profileCode) {
+        if (userAccountService.getUserAccountByProfileCode(profileCode) != null) {
+            return false;
+        }
+        return true;
+    }
+
 }

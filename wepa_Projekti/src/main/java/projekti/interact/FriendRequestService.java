@@ -21,7 +21,8 @@ public class FriendRequestService {
 
     @Autowired
     private FriendRequestRepository friendRequestRepository;
-
+    
+ 
     @Transactional
     public void addFriendRequest(FriendRequest friendRequest) {
         friendRequestRepository.save(friendRequest);

@@ -66,17 +66,17 @@ public class FriendRequestController {
 // https://stackoverflow.com/questions/49051830/how-to-extract-the-selected-value-from-a-datalist-with-thymeleaf-and-spring
         LocalDateTime dateTime = now();
         FriendRequest friendRequest = new FriendRequest(sourceUserAccount, targetUserAccout, dateTime, true, false);
-        sourceUserAccount.getSentFriendRequests().add(friendRequest);
-        targetUserAccout.getRecievedFriendRequests().add(friendRequest);
+//        sourceUserAccount.getSentFriendRequests().add(friendRequest);
+//        targetUserAccout.getRecievedFriendRequests().add(friendRequest);
 
         System.out.println("lähettäjä:");
         System.out.println(sourceUserAccount.getId());
         System.out.println("vastaanottaja:");
         System.out.println(targetUserAccout.getId());
-
+        
 //        userAccountRepository.save(sourceUserAccount);
 //        userAccountRepository.save(targetUserAccout);
-        friendRequestService.addFriendRequestNativeSQL(friendRequest);
+//        friendRequestService.addFriendRequestNativeSQL(friendRequest);
 //        friendRequestService.addFriendRequest(friendRequest);
         return "redirect:/profile/" + profileCode;
     }
