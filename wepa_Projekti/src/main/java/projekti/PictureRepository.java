@@ -9,9 +9,4 @@ public interface PictureRepository extends JpaRepository<Picture, Long> {
 
     Picture getPictureById(Long id);
 
-//    @Query(
-//            value = "SELECT * from INTERACTABLE WHERE DTYPE = 'Picture' AND PICTURE_ALBUM_ID = ID",
-//            nativeQuery = true)
-//    List<Picture> findPicturesFromInteractablesByPictureAlbumID(@Param("ID") Long ID);
-
 }

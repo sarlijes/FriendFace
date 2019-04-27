@@ -9,8 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,52 +49,14 @@ public class FriendRequestController {
     @Transactional
     @PostMapping("/profile/{profileCode}/sendFriendRequest")
     public String sendFriendRequest(@PathVariable String profileCode, @RequestParam Long chosenId, Model model) {
-        System.out.println("chosenId on:" + chosenId);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
-
         UserAccount sourceUserAccount = userAccountService.getUserAccountByUserName(loggedInUsername);
         UserAccount targetUserAccout = userAccountService.getUserAccountById(chosenId);
-
-//        FriendRequest friendRequest = new FriendRequest(sourceUserAccount, targetUserAccout, now(), true, false);
-//        sourceUserAccount.getSentFriendRequests().add(friendRequest);
-//        targetUserAccout.getRecievedFriendRequests().add(friendRequest);
         FriendRequest f = new FriendRequest(sourceUserAccount, targetUserAccout, now(), false, true);
-
-//        FriendRequest eka = new FriendRequest(userAccountService.getUserAccountById(Long.valueOf(5)), userAccountService.getUserAccountById(Long.valueOf(19)), now(), true, false);
-        System.out.println("lähettäjä:");
-        System.out.println(sourceUserAccount.getUserName());
-        System.out.println("vastaanottaja:");
-        System.out.println(targetUserAccout.getUserName());
-
         friendRequestService.addFriendRequest(f);
-
-//        userAccountRepository.save(sourceUserAccount);
-//        userAccountRepository.save(targetUserAccout);
-//        friendRequestService.addFriendRequestNativeSQL(friendRequest);
-//        friendRequestService.addFriendRequest(friendRequest);
         return "redirect:/profile/" + profileCode;
     }
 }
-/*
+
 // https://stackoverflow.com/questions/49051830/how-to-extract-the-selected-value-from-a-datalist-with-thymeleaf-and-spring
-
-(cascade=CascadeType.ALL) vanhemman viitteeseen childiin
-(cascade = {CascadeType.ALL})
-
-ensin tallenna lapsi
-
-sitten parentti
-
-
-
-
-//    public String createPictureAlbum(Long sourceUserAccountId, Long targetUserAccountId) {
-//        UserAccount sourceUser = userAccountService.getUserAccountById(sourceUserAccountId);
-//        UserAccount targetUser = userAccountService.getUserAccountById(targetUserAccountId);
-//        LocalDateTime dateTime = now();
-//        friendRequestService.addFriendRequest(sourceUser, targetUser, dateTime);
-//        return "redirect:/";
-//    }
-
-*/

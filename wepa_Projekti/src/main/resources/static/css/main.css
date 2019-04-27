@@ -23,13 +23,18 @@ body {
 .nav-link {
     margin-right: 1em !important;
 }
+.nav-link-small{
+    font-size: 16px;
+    color:#5c737f;
+}
+
 .nav-link:hover {
     color: #000;
 }
 .navbar-collapse {
     justify-content: flex-end;
 }
-/*--- description (Welcome to FriendFace) ---*/
+/*--- login: Welcome to FriendFace ---*/
 .description {
     left: 50%;
     position: absolute;
@@ -38,6 +43,7 @@ body {
     text-align: center;
 
 }
+
 .description h1 {
     color: #5c737f;
     cursor: pointer;
@@ -47,69 +53,37 @@ body {
     font-size: 1.3rem;
     line-height: 1.5;
 }
-/*--- Three-column Section ---*/
 
 .features {
-/*    margin: 0.5em auto;*/
     padding: 0.5em;
     position: relative;
 }
-.wall {
-    margin: 4em auto;
-    padding: 1em;
-    /*    position: relative;*/
-/*    width: 600px;*/
-}
-.signup {
-    margin: 4em auto;
-    padding: 1em;
-    position: relative;
-    width: 400px;
-}
+
 .login {
     left: 72%;
     position: absolute;
     top: 60%;
     transform: translate(-50%, -55%);
     text-align: center;
-
-}
-.feature-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    color:#555;
-    font-size: 18px;
-    font-family: 'Lato';
-    padding: 10px;
-    text-transform: uppercase;
-}
-.features img {
-    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    margin-bottom: 16px;
-
 }
 
 div.gallery {
-  margin: 5px;
-  border: 1px solid #ccc;
-  float: left;
-  width: 350px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 350px;
 }
-
+/*Picture Gallery*/
 div.gallery:hover {
-  border: 1px solid #777;
+    border: 1px solid #777;
 }
 
 div.gallery img {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    height: auto;
 }
 
 div.desc {
-  padding: 15px;
-  text-align: center;
+    padding: 15px;
+    text-align: center;
 }

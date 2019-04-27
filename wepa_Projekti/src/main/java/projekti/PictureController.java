@@ -35,9 +35,9 @@ public class PictureController {
 
     @PostMapping("/profile/{profileCode}")
     public String add(@RequestParam("file") MultipartFile file, @PathVariable String profileCode, @RequestParam String caption) throws IOException {
-//        if (!file.getContentType().equals("image/jpg")) {
-//            return "redirect:/profile/" + profileCode;
-//        }
+        if (!file.getContentType().equals("image/jpeg")) {
+            return "redirect:/profile/" + profileCode;
+        }
         if (pictureRepository.count() <= 9 && !file.isEmpty()) {
             pictureService.addPicture(file, profileCode, caption, false);
         }

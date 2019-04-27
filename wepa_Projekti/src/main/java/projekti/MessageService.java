@@ -27,8 +27,6 @@ public class MessageService {
         Message message = new Message(sender, reciever, dateTime, content, null, null);
         messageRepository.save(message);
         UserAccount u = userAccountRepository.getUserAccountByUserName("jessi");
-//        sender.getSentWallMessages().add(message);
-//        u.getRecievedWallMessages().add(message);
     }
 
     public Page<Message> findMax25messages(Long id) {

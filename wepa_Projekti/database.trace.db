@@ -1,3 +1,0 @@
-2019-04-26 14:10:53 jdbc[13]: exception
-org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE FROM USER_ACCOUNT WHERE ID[*] ==13 "; SQL statement:
-delete FROM USER_ACCOUNT where id ==13 [42000-197]

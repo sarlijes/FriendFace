@@ -13,8 +13,5 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Interactable extends AbstractPersistable<Long> {
-
-//    private List<Comment> comments = new ArrayList<>();
-//    private List<ThumbUp> thumbUps = new ArrayList<>();
-    
+ 
 }

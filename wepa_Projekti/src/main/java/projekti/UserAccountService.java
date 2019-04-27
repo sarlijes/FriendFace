@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserAccountService {
@@ -35,5 +34,13 @@ public class UserAccountService {
 
     public List<UserAccount> getAllUserAccounts() {
         return userAccountRepository.findAll();
+    }
+
+    public boolean userNameisValid(String userName) {
+        return getUserAccountByUserName(userName) == null;
+    }
+
+    public boolean profileCodeisValid(String profileCode) {
+        return getUserAccountByProfileCode(profileCode) == null;
     }
 }

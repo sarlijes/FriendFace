@@ -29,11 +29,7 @@ public class CommentService {
 
     @Transactional
     public void addComment(Comment comment) {
-
         commentRepository.save(comment);
-//        UserAccount u = userAccountRepository.getUserAccountByUserName("jessi");
-//        sender.getSentWallMessages().add(message);
-//        u.getRecievedWallMessages().add(message);
     }
 
     public List<Comment> getCommentsByInteractableId(Long id) {

@@ -56,15 +56,4 @@ public class CommentController {
         return "redirect:/profile/" + profileCode;
     }
 }
-/*   @PostMapping("/{profileCode}/message/{id}/addThumbUp")
-    public String addThumbUp(@PathVariable String profileCode, @PathVariable Long id) {
 
-
-                                                    <form th:action="@{/message/{id}/addComment(id=${message.id})}" th:method="POST">
-                                                        <input type="text" name="comment" id="caption" placeholder="..."/>
-                                                        <input type="submit" value="Add comment" />
-                                                    </form>
-                                                </th>
-                                                <th>
-                                                    <form th:action="@{/message/{id}/addThumbUp(id=${message.id})}" th:method="POST">
- */

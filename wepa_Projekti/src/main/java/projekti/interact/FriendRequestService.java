@@ -29,18 +29,6 @@ public class FriendRequestService {
     }
 
     @Transactional
-    public void addFriendRequestNativeSQL(FriendRequest friendRequest) {
-        Long sourceUserAccountId = friendRequest.getSourceUserAccount().getId();
-        Long targetUserAccountId = friendRequest.getTargetUserAccount().getId();
-        LocalDateTime dateTime = now();
-        Boolean pending = true;
-        Boolean accepted = false;
-        Long id = new Random().nextLong();
-
-        friendRequestRepository.insertFriendRequest(id,accepted,dateTime,pending, sourceUserAccountId, targetUserAccountId);
-    }
-
-    @Transactional
     public void rejectFriendRequest(FriendRequest friendRequest) {
         friendRequest.getSourceUserAccount().getSentFriendRequests().remove(friendRequest);
         friendRequest.getTargetUserAccount().getRecievedFriendRequests().remove(friendRequest);

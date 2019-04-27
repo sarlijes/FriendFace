@@ -25,6 +25,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().sameOrigin();
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/css", "/css/*").permitAll()
                 .antMatchers("/signup").permitAll()
                 .anyRequest().authenticated()
                 .and()

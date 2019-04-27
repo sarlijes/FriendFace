@@ -6,6 +6,4 @@ public interface PictureAlbumRepository extends JpaRepository<PictureAlbum, Long
 
     PictureAlbum getPictureAlbumByOwner(UserAccount owner);
 
-   
-    
 }
