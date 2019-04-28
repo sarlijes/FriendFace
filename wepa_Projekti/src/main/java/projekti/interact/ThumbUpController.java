@@ -36,20 +36,20 @@ public class ThumbUpController {
     public String addPictureThumbUp(@PathVariable String profileCode, @PathVariable Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
-        Picture p = pictureService.getOne(id);
+        Picture picture = pictureService.getOne(id);
 
         UserAccount giver = userAccountService.getUserAccountByUserName(loggedInUsername);
 
-        ThumbUp thumbUp = new ThumbUp(giver, p);
+        ThumbUp thumbUp = new ThumbUp(giver, picture);
 
-        for (ThumbUp t : p.getPictureThumbUps()) {
+        for (ThumbUp t : picture.getPictureThumbUps()) {
             if (t.getGiver() == giver) {
-                p.getPictureThumbUps().remove(t);
+                picture.getPictureThumbUps().remove(t);
                 thumbUpService.deleteThumbUpById(t.getId());
                 return "redirect:/profile/" + profileCode;
             }
         }
-        p.getPictureThumbUps().add(thumbUp);
+        picture.getPictureThumbUps().add(thumbUp);
         thumbUpService.addThumbUp(thumbUp);
         return "redirect:/profile/" + profileCode;
     }
@@ -59,16 +59,16 @@ public class ThumbUpController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
         UserAccount giver = userAccountService.getUserAccountByUserName(loggedInUsername);
-        Message m = messageRepository.getOne(id);
-        ThumbUp thumbUp = new ThumbUp(giver, m);
-        for (ThumbUp t : m.getMessageThumbUps()) {
+        Message message = messageRepository.getOne(id);
+        ThumbUp thumbUp = new ThumbUp(giver, message);
+        for (ThumbUp t : message.getMessageThumbUps()) {
             if (t.getGiver() == giver) {
-                m.getMessageThumbUps().remove(t);
+                message.getMessageThumbUps().remove(t);
                 thumbUpService.deleteThumbUpById(t.getId());
                 return "redirect:/profile/" + profileCode;
             }
         }
-        m.getMessageThumbUps().add(thumbUp);
+        message.getMessageThumbUps().add(thumbUp);
         thumbUpService.addThumbUp(thumbUp);
         return "redirect:/profile/" + profileCode;
     }

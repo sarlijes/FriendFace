@@ -60,34 +60,34 @@ public class ProjektiTest {
     @Test
     public void addingOneUserAccountIncreacesDatabaseSize() {
         int userAccountRepositorySize = userAccountRepository.findAll().size();
-        UserAccount u = new UserAccount("lam12", "pw1245", "pw1245", "first", "last", "lam85", null, null, null);
-        userAccountRepository.save(u);
+        UserAccount userAccount = new UserAccount("lam12", "pw1245", "pw1245", "first", "last", "lam85", null, null, null);
+        userAccountRepository.save(userAccount);
         assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
 //        assertTrue(userAccountRepository.findAll().contains(u));
     }
 
     @Test
     public void canAddUserAndIdMatches() {
-        UserAccount u = new UserAccount("heavyman", "pw1245", "pw1245", "first", "last", "heavymancode5655", null, null, null);
-        userAccountRepository.save(u);
-        Long uId = u.getId();
+        UserAccount userAccount = new UserAccount("heavyman", "pw1245", "pw1245", "first", "last", "heavymancode5655", null, null, null);
+        userAccountRepository.save(userAccount);
+        Long userAccountId = userAccount.getId();
         Long fetchedId = userAccountService.getUserAccountByUserName("heavyman").getId();
-        assertTrue(uId.equals(fetchedId));
+        assertTrue(userAccountId.equals(fetchedId));
     }
 
     @Test
     public void addingOneMessageIncreacesDatabaseSize() {
         int messageRepositorySize = messageRepository.findAll().size();
-        Message m = new Message(null, null, now(), "content 1454", null, null);
-        messageRepository.save(m);
+        Message message = new Message(null, null, now(), "content 1454", null, null);
+        messageRepository.save(message);
         assertTrue(messageRepository.findAll().size() == messageRepositorySize + 1);
     }
 
     @Test
     public void canAddMessageAndIdMatches() {
-        Message m = new Message(null, null, now(), "content 1454", null, null);
-        messageRepository.save(m);
-        Long id = m.getId();
+        Message message = new Message(null, null, now(), "content 1454", null, null);
+        messageRepository.save(message);
+        Long id = message.getId();
         Long fetchedId = messageRepository.getOne(id).getId();
         assertTrue(id.equals(fetchedId));
     }
@@ -95,16 +95,16 @@ public class ProjektiTest {
     @Test
     public void addingOneThumbUpIncreacesDatabaseSize() {
         int thumbUpRepositorySize = thumbUpRepository.findAll().size();
-        ThumbUp t = new ThumbUp(null, null);
-        thumbUpRepository.save(t);
+        ThumbUp thumbUp = new ThumbUp(null, null);
+        thumbUpRepository.save(thumbUp);
         assertTrue(thumbUpRepository.findAll().size() == thumbUpRepositorySize + 1);
     }
 
     @Test
     public void canAddThumbUpAndIdMatches() {
-        ThumbUp t = new ThumbUp(null, null);
-        thumbUpRepository.save(t);
-        Long id = t.getId();
+        ThumbUp thumbUp = new ThumbUp(null, null);
+        thumbUpRepository.save(thumbUp);
+        Long id = thumbUp.getId();
         Long fetchedId = thumbUpRepository.getOne(id).getId();
         assertTrue(id.equals(fetchedId));
     }
@@ -112,18 +112,18 @@ public class ProjektiTest {
     @Test
     public void addingCommentIncreacesDatabaseSize() {
         int commentRepositorySize = commentRepository.findAll().size();
-        Message m = new Message(null, null, now(), "want some ice cream", null, null);
-        messageRepository.save(m);
-        Comment c = new Comment(null, m, now(), "comment 114");
-        commentRepository.save(c);
+        Message message = new Message(null, null, now(), "want some ice cream", null, null);
+        messageRepository.save(message);
+        Comment comment = new Comment(null, message, now(), "comment 114");
+        commentRepository.save(comment);
         assertTrue(commentRepository.findAll().size() == commentRepositorySize + 1);
     }
 
     @Test
     public void canAddCommentAndIdMatches() {
-        Comment c = new Comment(null, null, now(), "comment 556555");
-        commentRepository.save(c);
-        Long id = c.getId();
+        Comment comment = new Comment(null, null, now(), "comment 556555");
+        commentRepository.save(comment);
+        Long id = comment.getId();
         Long fetchedId = commentRepository.getOne(id).getId();
         assertTrue(id.equals(fetchedId));
     }
@@ -136,24 +136,24 @@ public class ProjektiTest {
         userAccountRepository.save(stargazer);
         userAccountRepository.save(friend);
 
-        Message m = new Message(stargazer, friend, now(), "stars r nice", null, null);
-        messageRepository.save(m);
+        Message message = new Message(stargazer, friend, now(), "stars r nice", null, null);
+        messageRepository.save(message);
 
-        Comment c = new Comment(stargazer, m, now(), "comment 556555");
-        commentRepository.save(c);
-        ThumbUp t = new ThumbUp(stargazer, m);
-        thumbUpRepository.save(t);
+        Comment comment = new Comment(stargazer, message, now(), "comment 556555");
+        commentRepository.save(comment);
+        ThumbUp thumbUp = new ThumbUp(stargazer, message);
+        thumbUpRepository.save(thumbUp);
 
         Long userAccountId = stargazer.getId();
-        Long messageId = m.getId();
-        Long commentId = c.getId();
-        Long thumbUpId = t.getId();
+        Long messageId = message.getId();
+        Long commentId = comment.getId();
+        Long thumbUpId = thumbUp.getId();
 
         System.out.println(messageId);
         System.out.println(commentId);
         System.out.println(thumbUpId);
 
-        assertFalse(userAccountRepository.getOne(m.getId()).getId() == null);
+        assertFalse(userAccountRepository.getOne(message.getId()).getId() == null);
         assertFalse(messageRepository.getOne(messageId).getId() == null);
         assertFalse(commentRepository.getOne(commentId).getId() == null);
         assertFalse(thumbUpRepository.getOne(thumbUpId).getId() == null);

@@ -26,7 +26,6 @@ public class MessageService {
     public void addWallMessage(UserAccount sender, UserAccount reciever, LocalDateTime dateTime, String content) {
         Message message = new Message(sender, reciever, dateTime, content, null, null);
         messageRepository.save(message);
-        UserAccount u = userAccountRepository.getUserAccountByUserName("jessi");
     }
 
     public Page<Message> findMax25messages(Long id) {

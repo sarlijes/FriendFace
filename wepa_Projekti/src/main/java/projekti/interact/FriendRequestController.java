@@ -28,9 +28,6 @@ public class FriendRequestController {
     @Autowired
     private UserAccountService userAccountService;
 
-    @Autowired
-    private UserAccountRepository userAccountRepository;
-
     @PostMapping("/friendrequest/reject/{id}")
     public String reject(@PathVariable Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -56,23 +53,23 @@ public class FriendRequestController {
         String loggedInUsername = auth.getName();
         UserAccount sourceUserAccount = userAccountService.getUserAccountByUserName(loggedInUsername);
         UserAccount targetUserAccout = userAccountService.getUserAccountById(chosenId);
-        FriendRequest f = new FriendRequest(sourceUserAccount, targetUserAccout, now(), false, true);
-        friendRequestService.addFriendRequest(f);
+        FriendRequest friendRequest = new FriendRequest(sourceUserAccount, targetUserAccout, now(), false, true);
+        friendRequestService.addFriendRequest(friendRequest);
         return "redirect:/profile/" + profileCode;
     }
 
-    public List<UserAccount> findPossibleFriends(List<UserAccount> allUserAccounts, UserAccount u) {
+    public List<UserAccount> findPossibleFriends(List<UserAccount> allUserAccounts, UserAccount userAccount) {
         List<UserAccount> possibleFriends = new ArrayList<>();
         possibleFriends.addAll(allUserAccounts);
-        possibleFriends.remove(u);
+        possibleFriends.remove(userAccount);
         for (UserAccount uAll : allUserAccounts) {
             for (FriendRequest f : uAll.getRecievedFriendRequests()) {
-                if (f.getSourceUserAccount() == u || f.getTargetUserAccount() == u) {
+                if (f.getSourceUserAccount() == userAccount || f.getTargetUserAccount() == userAccount) {
                     possibleFriends.remove(uAll);
                 }
             }
             for (FriendRequest f : uAll.getSentFriendRequests()) {
-                if (f.getSourceUserAccount() == u || f.getTargetUserAccount() == u) {
+                if (f.getSourceUserAccount() == userAccount || f.getTargetUserAccount() == userAccount) {
                     possibleFriends.remove(uAll);
                 }
             }

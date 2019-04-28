@@ -24,11 +24,12 @@ public class PictureService {
 
     public void addPicture(MultipartFile file, String profileCode, String caption, Boolean isProfilePicture) throws IOException {
         String userName = userAccountRepository.getUserAccountByProfileCode(profileCode).getUserName();
-// hae resurssit repoista:
-        UserAccount u = userAccountRepository.getUserAccountByUserName(userName);
-        PictureAlbum pictureAlbum = pictureAlbumRepository.getPictureAlbumByOwner(u);
+        UserAccount userAccount = userAccountRepository.getUserAccountByUserName(userName);
+        
+        PictureAlbum pictureAlbum = pictureAlbumRepository.getPictureAlbumByOwner(userAccount);
         List<Picture> pictures = pictureAlbum.getPictures();
-// luo kuva ja aseta sisältö:
+
+        
         Picture picture = new Picture();
         picture.setContent(file.getBytes());
         picture.setContentLength(file.getSize());
@@ -36,14 +37,14 @@ public class PictureService {
         picture.setName(file.getOriginalFilename());
         picture.setCaption(caption);
         picture.setIsProfilePicture(Boolean.FALSE);
-        picture.setPictureAlbum(u.getPictureAlbum());
-//lisää kuva listalle:
+        picture.setPictureAlbum(userAccount.getPictureAlbum());
+
         pictures.add(picture);
-// Tallenna kaikki, myös repoihin:
+        
         pictureAlbum.setPictures(pictures);
-        u.setPictureAlbum(pictureAlbum);
+        userAccount.setPictureAlbum(pictureAlbum);
         pictureAlbumRepository.save(pictureAlbum);
-        userAccountRepository.save(u);
+        userAccountRepository.save(userAccount);
         pictureRepository.save(picture);
     }
 

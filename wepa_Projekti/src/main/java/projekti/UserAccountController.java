@@ -74,27 +74,27 @@ public class UserAccountController {
     public String showProfilePage(Model model, @PathVariable String profileCode) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
-        UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
+        UserAccount userAccount = userAccountService.getUserAccountByProfileCode(profileCode);
 
-        Boolean hasPendingSent = friendRequestService.hasPendingSentFriendRequests(u);
-        Boolean hasPendingRecieved = friendRequestService.hasPendingRecievedFriendRequests(u);
+        Boolean hasPendingSent = friendRequestService.hasPendingSentFriendRequests(userAccount);
+        Boolean hasPendingRecieved = friendRequestService.hasPendingRecievedFriendRequests(userAccount);
 
-        List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
-        List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(u);
+        List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(userAccount);
+        List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(userAccount);
 
         List<UserAccount> allUserAccounts = userAccountService.getAllUserAccounts();
-        List<UserAccount> possibleFriends = friendRequestController.findPossibleFriends(allUserAccounts, u);
-        Boolean hasFriends = friendRequestController.hasFriends(u);
+        List<UserAccount> possibleFriends = friendRequestController.findPossibleFriends(allUserAccounts, userAccount);
+        Boolean hasFriends = friendRequestController.hasFriends(userAccount);
 
         model.addAttribute("logged", userAccountService.getUserAccountByUserName(loggedInUsername));
         model.addAttribute("loggedUserNameUpperCase", userAccountService.getUserAccountByUserName(loggedInUsername).getUserName().toUpperCase());
-        model.addAttribute("userAccount", u);
+        model.addAttribute("userAccount", userAccount);
         model.addAttribute("allUserAccounts", possibleFriends);
         model.addAttribute("hasFriends", hasFriends);
 
-        Page<Message> recievedmessages = messageService.findMax25messages(u.getId());
+        Page<Message> recievedmessages = messageService.findMax25messages(userAccount.getId());
 
-        List<Picture> pictures = pictureAlbumService.getPictureAlbumByOwner(u).getPictures();
+        List<Picture> pictures = pictureAlbumService.getPictureAlbumByOwner(userAccount).getPictures();
 
         for (Message m : recievedmessages) {
             m.setMessageComments(commentService.getCommentsByInteractableId(m.getId()));
@@ -110,7 +110,7 @@ public class UserAccountController {
         model.addAttribute("hasPendingSentFriendRequests", hasPendingSent);
         model.addAttribute("hasPendingRecievedFriendRequests", hasPendingRecieved);
 
-        Long profilePicId = pictureService.getProfilePictureId(u);
+        Long profilePicId = pictureService.getProfilePictureId(userAccount);
         model.addAttribute("profilePicId", profilePicId);
         return "profile";
     }

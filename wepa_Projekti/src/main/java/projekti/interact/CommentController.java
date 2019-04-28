@@ -36,10 +36,10 @@ public class CommentController {
     public String addPictureComment(@PathVariable String profileCode, @PathVariable Long id, @RequestParam String pictureContent) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
-        Picture p = pictureService.getOne(id);
+        Picture picture = pictureService.getOne(id);
         LocalDateTime dateTime = now();
         UserAccount writer = userAccountService.getUserAccountByUserName(loggedInUsername);
-        Comment comment = new Comment(writer, p, dateTime, pictureContent);
+        Comment comment = new Comment(writer, picture, dateTime, pictureContent);
         commentService.addComment(comment);
         return "redirect:/profile/" + profileCode;
     }
@@ -48,10 +48,10 @@ public class CommentController {
     public String addComment(@PathVariable String profileCode, @PathVariable Long id, @RequestParam String commentContent) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
-        Message m = messageRepository.getOne(id);
+        Message message = messageRepository.getOne(id);
         LocalDateTime dateTime = now();
         UserAccount writer = userAccountService.getUserAccountByUserName(loggedInUsername);
-        Comment comment = new Comment(writer, m, dateTime, commentContent);
+        Comment comment = new Comment(writer, message, dateTime, commentContent);
         commentService.addComment(comment);
         return "redirect:/profile/" + profileCode;
     }

@@ -9,20 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import projekti.Message;
-import projekti.MessageRepository;
-import projekti.UserAccount;
-import projekti.UserAccountRepository;
-import projekti.UserAccountService;
+import projekti.*;
 
 @Service
 public class ThumbUpService {
-
-    @Autowired
-    private UserAccountService userAccountService;
-
-    @Autowired
-    private ThumbUpController thumbUpController;
 
     @Autowired
     private ThumbUpRepository thumbUpRepository;
