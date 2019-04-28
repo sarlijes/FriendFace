@@ -37,7 +37,11 @@ public class PictureController {
     public String add(@RequestParam("file") MultipartFile file, @PathVariable String profileCode, @RequestParam String caption) throws IOException {
         if (!file.getContentType().equals("image/jpeg")) {
             return "redirect:/profile/" + profileCode;
-        }
+//        } else if (!file.getContentType().equals("image/gif")) {
+//            return "redirect:/profile/" + profileCode;
+//        } else if (!file.getContentType().equals("image/png")) {
+//            return "redirect:/profile/" + profileCode;
+        } 
         if (pictureRepository.count() <= 9 && !file.isEmpty()) {
             pictureService.addPicture(file, profileCode, caption, false);
         }
@@ -78,4 +82,4 @@ public class PictureController {
         String loggedInUsername = auth.getName();
 
         return "redirect:/profile/" + profileCode;
-*/
+ */

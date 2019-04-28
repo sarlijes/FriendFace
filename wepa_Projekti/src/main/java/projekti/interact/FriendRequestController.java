@@ -3,6 +3,9 @@ package projekti.interact;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,6 +59,39 @@ public class FriendRequestController {
         FriendRequest f = new FriendRequest(sourceUserAccount, targetUserAccout, now(), false, true);
         friendRequestService.addFriendRequest(f);
         return "redirect:/profile/" + profileCode;
+    }
+
+    public List<UserAccount> findPossibleFriends(List<UserAccount> allUserAccounts, UserAccount u) {
+        List<UserAccount> possibleFriends = new ArrayList<>();
+        possibleFriends.addAll(allUserAccounts);
+        for (UserAccount uAll : allUserAccounts) {
+            for (FriendRequest f : uAll.getRecievedFriendRequests()) {
+                if (f.getSourceUserAccount() == u || f.getTargetUserAccount() == u) {
+                    possibleFriends.remove(uAll);
+                }
+            }
+            for (FriendRequest f : uAll.getSentFriendRequests()) {
+                if (f.getSourceUserAccount() == u || f.getTargetUserAccount() == u) {
+                    possibleFriends.remove(uAll);
+                }
+            }
+        }
+        return possibleFriends;
+    }
+
+    public Boolean hasFriends(UserAccount u) {
+        Boolean hasFriends = false;
+        for (FriendRequest f : u.getRecievedFriendRequests()) {
+            if (f.getAccepted() == true) {
+                hasFriends = true;
+            }
+        }
+        for (FriendRequest f : u.getSentFriendRequests()) {
+            if (f.getAccepted() == true) {
+                hasFriends = true;
+            }
+        }
+        return hasFriends;
     }
 }
 

@@ -27,6 +27,8 @@ public class UserAccount extends AbstractPersistable<Long> {
     @NotEmpty
     private String passWord;
     @NotEmpty
+    private String confirmPassWord;
+    @NotEmpty
     @Size(min = 2, max = 50)
     private String firstName;
     @NotEmpty

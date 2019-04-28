@@ -28,6 +28,7 @@ import projekti.interact.Comment;
 import projekti.interact.FriendRequest;
 import projekti.interact.FriendRequestService;
 import projekti.interact.CommentService;
+import projekti.interact.FriendRequestController;
 
 @Controller
 
@@ -52,6 +53,8 @@ public class UserAccountController {
     @Autowired
     private FriendRequestService friendRequestService;
     @Autowired
+    private FriendRequestController friendRequestController;
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/homepage")
@@ -70,14 +73,29 @@ public class UserAccountController {
         PictureAlbum pA = pictureAlbumService.getPictureAlbumByOwner(u);
 //        Long pAiD = pA.getId();
         List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
+        Boolean hasPendingSentFriendRequests = false;
         List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(u);
+        Boolean hasPendingRecievedFriendRequests = false;
+
+        for (FriendRequest f : sentFriendRequests) {
+            if (f.getPending() == true) {
+                hasPendingSentFriendRequests = true;
+            }
+        }
+        for (FriendRequest f : recievedFriendRequests) {
+            if (f.getPending() == true) {
+                hasPendingRecievedFriendRequests = true;
+            }
+        }
         List<UserAccount> allUserAccounts = userAccountService.getAllUserAccounts();
-        allUserAccounts.remove(u);
+        List<UserAccount> possibleFriends = friendRequestController.findPossibleFriends(allUserAccounts, u);
+        Boolean hasFriends = friendRequestController.hasFriends(u);
 
         model.addAttribute("logged", userAccountService.getUserAccountByUserName(loggedInUsername));
         model.addAttribute("loggedUserNameUpperCase", userAccountService.getUserAccountByUserName(loggedInUsername).getUserName().toUpperCase());
         model.addAttribute("userAccount", u);
-        model.addAttribute("allUserAccounts", allUserAccounts);
+        model.addAttribute("allUserAccounts", possibleFriends);
+        model.addAttribute("hasFriends", hasFriends);
 
         Page<Message> recievedmessages = messageService.findMax25messages(u.getId());
 
@@ -103,6 +121,8 @@ public class UserAccountController {
         model.addAttribute("recievedmessages", recievedmessages);
         model.addAttribute("sentFriendRequests", sentFriendRequests);
         model.addAttribute("recievedFriendRequests", recievedFriendRequests);
+        model.addAttribute("hasPendingSentFriendRequests", hasPendingSentFriendRequests);
+        model.addAttribute("hasPendingRecievedFriendRequests", hasPendingRecievedFriendRequests);
 
         for (Picture pic : pictureAlbumService.getPictureAlbumByOwner(u).getPictures()) {
             Long profilePicId;
@@ -116,6 +136,10 @@ public class UserAccountController {
 
     @PostMapping("/signup")
     public String create(@Valid @ModelAttribute UserAccount userAccount, BindingResult bindingResult) {
+        if (!userAccount.getPassWord().equals(userAccount.getConfirmPassWord())) {
+            bindingResult.rejectValue("confirmPassWord", "error.userName", "Passwords don't match");
+            return "signup";
+        }
         if (bindingResult.hasErrors()) {
             return "signup";
         }
@@ -123,6 +147,8 @@ public class UserAccountController {
             if (userAccountService.userNameisValid(userAccount.getUserName())) {
                 if (userAccountService.profileCodeisValid(userAccount.getProfileCode())) {
                     userAccount.setPassWord(passwordEncoder.encode(userAccount.getPassWord()));
+                   
+                    userAccount.setConfirmPassWord(passwordEncoder.encode(userAccount.getConfirmPassWord()));
                     userAccountService.addUserAccount(userAccount);
                     pictureAlbumService.addPictureAlbum(userAccountService.getIdByProfileCode(userAccount.getProfileCode()));
                     return "redirect:/login";
@@ -146,4 +172,3 @@ public class UserAccountController {
         return "signup";
     }
 }
-

@@ -8,9 +8,6 @@ Paja:
 https://getbootstrap.com/docs/4.0/components/navbar/#forms
 
 - testit
-- salasanan varmistus (tupla)
-- kaverille ei voi lähettää kaveripyyntöä
-- has pending friend requests (molemmille)
 
 lopputarkastus:
 - käyttämättämät importit

@@ -28,6 +28,12 @@
                                                 <input type="password"  th:field="*{passWord}" class="form-control">
                                                     <div th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}">passWord error</div>
                                             </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="confirmPassWord">Confirm password</label>
+                                                <input type="password"  th:field="*{confirmPassWord}" class="form-control">
+                                                    <div th:if="${#fields.hasErrors('confirmPassWord')}" th:errors="*{confirmPassWord}">passWord error</div>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label for="firstName">First name</label>
