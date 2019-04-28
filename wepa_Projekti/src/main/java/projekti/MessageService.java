@@ -20,7 +20,7 @@ public class MessageService {
     private MessageRepository messageRepository;
     @Autowired
     private UserAccountRepository userAccountRepository;
-    List<Comment> getMessagesByInteractableId;
+    
 
     @Transactional
     public void addWallMessage(UserAccount sender, UserAccount reciever, LocalDateTime dateTime, String content) {

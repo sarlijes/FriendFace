@@ -1,4 +1,3 @@
-
 Paja:
 - tiedostomuodon rajaus muu kuin jpg
 - metoditason autorisointi @Secured("profileCode") (koodi alla jemmassa)
@@ -8,6 +7,7 @@ Paja:
 https://getbootstrap.com/docs/4.0/components/navbar/#forms
 
 - testit
+- viestien poistamisen mahdollisuus (ja kommentin?)
 
 lopputarkastus:
 - käyttämättämät importit
