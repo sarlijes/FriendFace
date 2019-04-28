@@ -12,37 +12,8 @@ https://getbootstrap.com/docs/4.0/components/navbar/#forms
 lopputarkastus:
 - käyttämättämät importit
 - controllereista suorat viittaukset repoihin pois
+- käytetyt testit readmehen ja hibernate
 
-Liitokset nyt:
-
-UserAccount (omistaja)
-    @OneToOne(cascade = CascadeType.ALL)
-    private PictureAlbum pictureAlbum;
-+   @OneToOne(cascade = CascadeType.ALL)
-+   private Wall wall;
-
-PictureAlbum
-    @OneToOne(mappedBy = "pictureAlbum")
-    private UserAccount owner;
-    
-    @OneToMany(mappedBy = "pictureAlbum")
-    private List<Picture> pictures = new ArrayList<>();
-
-Picture (omistaja)
-    @ManyToOne(cascade = CascadeType.ALL)
-    private PictureAlbum pictureAlbum;
-
-Wall
-    private UserAccount wallOwner;
-    private List <Message> wallMessages  = new ArrayList<>();
-
-Message
-private UserAccount sender;
-private UserAccount reciever;
-private LocalDateTime messageTimeStamp
-private String content;
-//     private List <Message> wallMessages  = new ArrayList<>();
-//     private List <Comments> messageComments  = new ArrayList<>();
 
 [UserAccount]
 [FriendRequest]

@@ -51,6 +51,7 @@
                                                                 <li th:if="${friendrequest.pending} == true">
                                                                     <span th:text="${friendrequest.targetUserAccount.firstName}">name</span>
                                                                     <span th:text="${friendrequest.targetUserAccount.lastName}">name</span>
+                                                                    <span th:text="'on ' + ${#temporals.format(friendrequest.friendRequestTimeStamp, 'dd.MM.yyyy HH:mm')}">name</span>
                                                                     <span th:if="${friendrequest.pending} == true">   (pending)</span>
                                                                 </li>
                                                             </ul>
@@ -63,6 +64,7 @@
                                                                 <li th:if="${friendrequest.pending} == true">
                                                                     <span th:text="${friendrequest.sourceUserAccount.firstName}">name</span>
                                                                     <span th:text="${friendrequest.sourceUserAccount.lastName}">name</span>
+                                                                    <span th:text="'on ' + ${#temporals.format(friendrequest.friendRequestTimeStamp, 'dd.MM.yyyy HH:mm')}">name</span>
                                                                     <form th:action="@{/friendrequest/reject/{id}(id=${friendrequest.id})}" th:method="POST">
                                                                         <input type="submit" id="reject" value="Reject"/></form>
                                                                     <form th:action="@{/friendrequest/approve/{id}(id=${friendrequest.id})}" th:method="POST">

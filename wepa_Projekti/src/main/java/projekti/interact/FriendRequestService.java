@@ -21,8 +21,7 @@ public class FriendRequestService {
 
     @Autowired
     private FriendRequestRepository friendRequestRepository;
-    
- 
+
     @Transactional
     public void addFriendRequest(FriendRequest friendRequest) {
         friendRequestRepository.save(friendRequest);
@@ -51,5 +50,25 @@ public class FriendRequestService {
 
     public FriendRequest getFriendRequestById(Long id) {
         return friendRequestRepository.getOne(id);
+    }
+
+    public Boolean hasPendingSentFriendRequests(UserAccount u) {
+        Boolean hasPendingSentFriendRequests = false;
+        for (FriendRequest f : u.getSentFriendRequests()) {
+            if (f.getPending() == true) {
+                hasPendingSentFriendRequests = true;
+            }
+        }
+        return hasPendingSentFriendRequests;
+    }
+
+    public Boolean hasPendingRecievedFriendRequests(UserAccount u) {
+        Boolean hasPendingRecievedFriendRequests = false;
+        for (FriendRequest f : u.getRecievedFriendRequests()) {
+            if (f.getPending() == true) {
+                hasPendingRecievedFriendRequests = true;
+            }
+        }
+        return hasPendingRecievedFriendRequests;
     }
 }

@@ -23,10 +23,9 @@ public class PictureService {
     private PictureAlbumService pictureAlbumService;
 
     public void addPicture(MultipartFile file, String profileCode, String caption, Boolean isProfilePicture) throws IOException {
-
-        String UserName = userAccountRepository.getUserAccountByProfileCode(profileCode).getUserName();
+        String userName = userAccountRepository.getUserAccountByProfileCode(profileCode).getUserName();
 // hae resurssit repoista:
-        UserAccount u = userAccountRepository.getUserAccountByUserName(UserName);
+        UserAccount u = userAccountRepository.getUserAccountByUserName(userName);
         PictureAlbum pictureAlbum = pictureAlbumRepository.getPictureAlbumByOwner(u);
         List<Picture> pictures = pictureAlbum.getPictures();
 // luo kuva ja aseta sisältö:
@@ -73,5 +72,22 @@ public class PictureService {
 
     public Picture getOne(Long id) {
         return pictureRepository.getOne(id);
+    }
+
+    Long getProfilePictureId(UserAccount u) {
+        Long profilePicId = Long.MIN_VALUE;
+        for (Picture pic : pictureAlbumService.getPictureAlbumByOwner(u).getPictures()) {
+            if (pic.getIsProfilePicture() == true) {
+                profilePicId = pic.getId();
+
+            }
+        }
+        if (!pictureAlbumService.getPictureAlbumByOwner(u).getPictures().isEmpty()) {
+            profilePicId = pictureAlbumService.getPictureAlbumByOwner(u).getPictures().get(0).getId();
+        } else {
+            profilePicId = null;
+        }
+        
+        return profilePicId;
     }
 }

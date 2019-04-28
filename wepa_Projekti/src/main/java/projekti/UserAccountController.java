@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import projekti.interact.Comment;
+import projekti.interact.CommentRepository;
 import projekti.interact.FriendRequest;
 import projekti.interact.FriendRequestService;
 import projekti.interact.CommentService;
@@ -43,6 +44,8 @@ public class UserAccountController {
     @Autowired
     private PictureAlbumService pictureAlbumService;
     @Autowired
+    private PictureAlbumController pictureAlbumController;
+    @Autowired
     private MessageService messageService;
     @Autowired
     private PictureService pictureService;
@@ -56,6 +59,8 @@ public class UserAccountController {
     private FriendRequestController friendRequestController;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping("/homepage")
     public String homepage() {
@@ -70,23 +75,13 @@ public class UserAccountController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
         UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
-        PictureAlbum pA = pictureAlbumService.getPictureAlbumByOwner(u);
-//        Long pAiD = pA.getId();
-        List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
-        Boolean hasPendingSentFriendRequests = false;
-        List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(u);
-        Boolean hasPendingRecievedFriendRequests = false;
 
-        for (FriendRequest f : sentFriendRequests) {
-            if (f.getPending() == true) {
-                hasPendingSentFriendRequests = true;
-            }
-        }
-        for (FriendRequest f : recievedFriendRequests) {
-            if (f.getPending() == true) {
-                hasPendingRecievedFriendRequests = true;
-            }
-        }
+        Boolean hasPendingSent = friendRequestService.hasPendingSentFriendRequests(u);
+        Boolean hasPendingRecieved = friendRequestService.hasPendingRecievedFriendRequests(u);
+
+        List<FriendRequest> sentFriendRequests = friendRequestService.getSentFriendRequestsByUserAccount(u);
+        List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(u);
+
         List<UserAccount> allUserAccounts = userAccountService.getAllUserAccounts();
         List<UserAccount> possibleFriends = friendRequestController.findPossibleFriends(allUserAccounts, u);
         Boolean hasFriends = friendRequestController.hasFriends(u);
@@ -104,33 +99,19 @@ public class UserAccountController {
         for (Message m : recievedmessages) {
             m.setMessageComments(commentService.getCommentsByInteractableId(m.getId()));
         }
-//        List<Comment> max10Comments = new ArrayList<>();
         for (Picture p : pictures) {
-//            p.setPictureComments(commentService.getCommentsByInteractableId(p.getId()));
-//            Page<Comment> max10pictureComments = commentService.getMax10CommentsByInteractableId(p.getId());
-//            System.out.println(max10pictureComments.getTotalElements() + " max10pictureComments total elements");
-//            max10pictureComments.stream()
-//                    .map(comment -> ploi.add(comment));
-//            p.setPictureComments(max10Comments);
             p.setPictureComments(commentService.getCommentsByInteractableId(p.getId()));
         }
-//        System.out.println(max10Comments.size());
-//        System.out.println("+++++++++++++++++++++++++++");
 
         model.addAttribute("pictures", pictures);
         model.addAttribute("recievedmessages", recievedmessages);
         model.addAttribute("sentFriendRequests", sentFriendRequests);
         model.addAttribute("recievedFriendRequests", recievedFriendRequests);
-        model.addAttribute("hasPendingSentFriendRequests", hasPendingSentFriendRequests);
-        model.addAttribute("hasPendingRecievedFriendRequests", hasPendingRecievedFriendRequests);
+        model.addAttribute("hasPendingSentFriendRequests", hasPendingSent);
+        model.addAttribute("hasPendingRecievedFriendRequests", hasPendingRecieved);
 
-        for (Picture pic : pictureAlbumService.getPictureAlbumByOwner(u).getPictures()) {
-            Long profilePicId;
-            if (pic.getIsProfilePicture() == true) {
-                profilePicId = pic.getId();
-                model.addAttribute("profilePicId", profilePicId);
-            }
-        }
+        Long profilePicId = pictureService.getProfilePictureId(u);
+        model.addAttribute("profilePicId", profilePicId);
         return "profile";
     }
 
@@ -147,7 +128,7 @@ public class UserAccountController {
             if (userAccountService.userNameisValid(userAccount.getUserName())) {
                 if (userAccountService.profileCodeisValid(userAccount.getProfileCode())) {
                     userAccount.setPassWord(passwordEncoder.encode(userAccount.getPassWord()));
-                   
+
                     userAccount.setConfirmPassWord(passwordEncoder.encode(userAccount.getConfirmPassWord()));
                     userAccountService.addUserAccount(userAccount);
                     pictureAlbumService.addPictureAlbum(userAccountService.getIdByProfileCode(userAccount.getProfileCode()));

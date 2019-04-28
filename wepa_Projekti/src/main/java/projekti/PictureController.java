@@ -42,7 +42,10 @@ public class PictureController {
 //        } else if (!file.getContentType().equals("image/png")) {
 //            return "redirect:/profile/" + profileCode;
         } 
-        if (pictureRepository.count() <= 9 && !file.isEmpty()) {
+        UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
+        
+        
+        if (u.getPictureAlbum().getPictures().size()  <= 9 && !file.isEmpty()) {
             pictureService.addPicture(file, profileCode, caption, false);
         }
         return "redirect:/profile/" + profileCode;
@@ -76,10 +79,3 @@ public class PictureController {
         return new ResponseEntity<>(pic.getContent(), headers, HttpStatus.CREATED);
     }
 }
-/*
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUsername = auth.getName();
-
-        return "redirect:/profile/" + profileCode;
- */

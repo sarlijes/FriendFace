@@ -64,6 +64,7 @@ public class FriendRequestController {
     public List<UserAccount> findPossibleFriends(List<UserAccount> allUserAccounts, UserAccount u) {
         List<UserAccount> possibleFriends = new ArrayList<>();
         possibleFriends.addAll(allUserAccounts);
+        possibleFriends.remove(u);
         for (UserAccount uAll : allUserAccounts) {
             for (FriendRequest f : uAll.getRecievedFriendRequests()) {
                 if (f.getSourceUserAccount() == u || f.getTargetUserAccount() == u) {
