@@ -24,6 +24,7 @@ public class Comment extends AbstractPersistable<Long>{
     @ManyToOne
     private Interactable interactable;
     private LocalDateTime commentTimeStamp;
+    @Lob
     @Column(name = "CONTENT", length = 1500)
     private String content;
 

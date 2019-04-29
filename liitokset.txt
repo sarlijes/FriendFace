@@ -10,6 +10,7 @@ https://stackoverflow.com/questions/50957811/autocomplete-datalist-on-thymeleaf
 
 - testit lisää viesti ja kommentoi sitä
 - viestien poistamisen mahdollisuus (ja kommentin?)
+korjaa ajat!
 
 lopputarkastus:
 - käyttämättämät importit 
