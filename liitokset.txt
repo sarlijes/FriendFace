@@ -5,8 +5,11 @@ Paja:
 2do:
 - käyttäjien etsiminen nimellä https://www.youtube.com/watch?v=FCwKQzJ4Ubw
 https://getbootstrap.com/docs/4.0/components/navbar/#forms
+https://stackoverflow.com/questions/29882361/show-datalist-labels-but-submit-the-actual-value
+https://stackoverflow.com/questions/50957811/autocomplete-datalist-on-thymeleaf
 
-- testit
+- testit lisää viesti ja kommentoi sitä
+
 - viestien poistamisen mahdollisuus (ja kommentin?)
 
 lopputarkastus:

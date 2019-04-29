@@ -63,7 +63,6 @@ public class ProjektiTest {
         UserAccount userAccount = new UserAccount("lam12", "pw1245", "pw1245", "first", "last", "lam85", null, null, null);
         userAccountRepository.save(userAccount);
         assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
-//        assertTrue(userAccountRepository.findAll().contains(u));
     }
 
     @Test

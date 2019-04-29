@@ -13,12 +13,12 @@
                             <nav class="navbar navbar-expand-md">
                                 <a class="nav-link" href="#"></a>
                             </nav>
-                           
-                                        <div class="container login">
-                                            <div class="row">
-                                                <div class="col-sm-4"><br>
-                                                    <h2>Welcome to FriendFace!</h2><br>
-                                                        <h5>Please log in or sign up.<h5><br><br>
+
+                            <div class="container login">
+                                <div class="row">
+                                    <div class="col-sm-4"><br>
+                                            <h2>Welcome to FriendFace!</h2><br>
+                                                <h5>Please log in or sign up.<h5><br><br>
 
                                                                 <form th:action="@{/login}" method='POST'>
                                                                     <div class="form-group">
@@ -33,6 +33,19 @@
                                                                     </div>
                                                                     <button type="submit" class="btn btn-primary" style=" background-color:cadetblue;">Log in</button>
                                                                 </form>
+
+
+
+                                                                <div class="error" th:if="${param.error}"
+                                                                     th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+                                                                    <br>
+                                                                        Reason: <span th:text="${errorMsg}">Wrong input!</span>
+                                                                </div>
+
+
+                                                                
+
+
                                                                 <br>
                                                                     <a class="nav-link" th:href="@{/signup}">Sign up </a>
                                                                     </div>

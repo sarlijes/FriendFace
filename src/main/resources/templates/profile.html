@@ -18,6 +18,7 @@
 
                                 <div class="collapse navbar-collapse" id="main-navigation" style="margin-left:300px">
 
+
                                     <form th:if="${!allUserAccounts.empty}" th:action="@{/profile/{profileCode}/sendFriendRequest(profileCode=${userAccount.profileCode})}"
                                           method="POST">
                                         <!--<input  list="allUserAccounts" name="allUserAccounts" >--> 
