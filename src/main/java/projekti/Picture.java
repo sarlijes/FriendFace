@@ -25,8 +25,8 @@ public class Picture extends Interactable {
     @Column(name = "CAPTION", length = 1500)
     private String caption;
     private Boolean isProfilePicture;
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
+//    @Lob
+//    @Basic(fetch = FetchType.LAZY)
     private byte[] content;
     private int thumbUpCount;
     @ManyToOne(cascade = CascadeType.ALL)

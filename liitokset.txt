@@ -12,7 +12,7 @@ https://stackoverflow.com/questions/50957811/autocomplete-datalist-on-thymeleaf
 - viestien poistamisen mahdollisuus (ja kommentin?)
 
 lopputarkastus:
-- käyttämättämät importit
+- käyttämättämät importit 
 - controllereista suorat viittaukset repoihin pois
 - käytetyt testit readmehen ja hibernate
 
