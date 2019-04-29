@@ -128,8 +128,7 @@
                                                                + ':'"
                                                         </p>
                                                         <p th:text="${message.content}"></p>
-                                                        <p>
-
+                                                        
                                                             <table style="position: absolute; right: 30px;">
                                                                 <tr>
                                                                     <!--<td th:text="${#lists.size(message.messageThumbUps)}">/</td>-->
@@ -141,8 +140,6 @@
                                                                     <!--<th th:text="${#lists.size(message.messageThumbUps)}">-->
                                                                     <!--<span th:text="'Welcome to our application, ' + ${user.name} + '!'">-->
 
-
-
                                                                     </th>
                                                                     <th>
                                                                         <form 
@@ -151,7 +148,8 @@
                                                                         </form>
                                                                     </th>
                                                                 </tr>
-                                                            </table></p>
+                                                                </section>
+                                                            </table>
 
                                                         <ul style="list-style: none; font-weight: 500;">
                                                             <div  th:each="comment: ${message.messageComments}">
