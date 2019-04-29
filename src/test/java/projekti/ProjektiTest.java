@@ -109,16 +109,6 @@ public class ProjektiTest {
     }
 
     @Test
-    public void addingCommentIncreacesDatabaseSize() {
-        int commentRepositorySize = commentRepository.findAll().size();
-        Message message = new Message(null, null, now(), "want some ice cream", null, null);
-        messageRepository.save(message);
-        Comment comment = new Comment(null, message, now(), "comment 114");
-        commentRepository.save(comment);
-        assertTrue(commentRepository.findAll().size() == commentRepositorySize + 1);
-    }
-
-    @Test
     public void canAddCommentAndIdMatches() {
         Comment comment = new Comment(null, null, now(), "comment 556555");
         commentRepository.save(comment);

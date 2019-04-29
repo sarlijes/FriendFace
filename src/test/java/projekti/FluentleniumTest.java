@@ -72,14 +72,13 @@ public class FluentleniumTest extends org.fluentlenium.adapter.junit.FluentTest 
         find("#profileCode").fill().with("1111111111");
         find("form").first().submit();
         assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
-        System.out.println(pageSource());
+   
         assertTrue(pageSource().contains("Please log in"));
         assertTrue(pageSource().contains("usernameinput"));
         assertTrue(pageSource().contains("passwordinput"));
         find("#usernameinput").fill().with("user123");
         find("#passwordinput").fill().with("1111111111");
         find("form").first().submit();
-        System.out.println(pageSource());
         assertTrue(pageSource().contains("Kaaleppi"));
     }
 
@@ -95,7 +94,6 @@ public class FluentleniumTest extends org.fluentlenium.adapter.junit.FluentTest 
         find("#profileCode").fill().with("12345");
         find("form").first().submit();
         assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
-        System.out.println(pageSource());
         assertTrue(pageSource().contains("Please log in"));
     }
 }
