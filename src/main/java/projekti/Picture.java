@@ -22,12 +22,12 @@ public class Picture extends Interactable {
     private Long contentLength;
     private String name;
     private String contentType;
-    @Lob
+//    @Lob
     @Column(name = "CAPTION", length = 1500)
     private String caption;
     private Boolean isProfilePicture;
 
-    @Lob
+//    @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
 
