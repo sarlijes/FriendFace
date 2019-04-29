@@ -44,12 +44,14 @@ public class ThumbUpController {
 
         for (ThumbUp t : picture.getPictureThumbUps()) {
             if (t.getGiver() == giver) {
+                picture.setThumbUpCount(picture.getThumbUpCount() - 1);
                 picture.getPictureThumbUps().remove(t);
                 thumbUpService.deleteThumbUpById(t.getId());
                 return "redirect:/profile/" + profileCode;
             }
         }
         picture.getPictureThumbUps().add(thumbUp);
+        picture.setThumbUpCount(picture.getThumbUpCount() + 1);
         thumbUpService.addThumbUp(thumbUp);
         return "redirect:/profile/" + profileCode;
     }
@@ -61,14 +63,19 @@ public class ThumbUpController {
         UserAccount giver = userAccountService.getUserAccountByUserName(loggedInUsername);
         Message message = messageRepository.getOne(id);
         ThumbUp thumbUp = new ThumbUp(giver, message);
+
         for (ThumbUp t : message.getMessageThumbUps()) {
             if (t.getGiver() == giver) {
+                message.setThumbUpCount(message.getThumbUpCount() - 1);
                 message.getMessageThumbUps().remove(t);
                 thumbUpService.deleteThumbUpById(t.getId());
+
                 return "redirect:/profile/" + profileCode;
             }
         }
+
         message.getMessageThumbUps().add(thumbUp);
+        message.setThumbUpCount(message.getThumbUpCount() + 1);
         thumbUpService.addThumbUp(thumbUp);
         return "redirect:/profile/" + profileCode;
     }

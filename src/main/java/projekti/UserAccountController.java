@@ -98,7 +98,6 @@ public class UserAccountController {
 
         for (Message m : recievedmessages) {
             m.setMessageComments(commentService.getCommentsByInteractableId(m.getId()));
-            m.setThumbUpCount(5577);
         }
         for (Picture p : pictures) {
             p.setPictureComments(commentService.getCommentsByInteractableId(p.getId()));

@@ -9,7 +9,6 @@ https://stackoverflow.com/questions/29882361/show-datalist-labels-but-submit-the
 https://stackoverflow.com/questions/50957811/autocomplete-datalist-on-thymeleaf
 
 - testit lisää viesti ja kommentoi sitä
-
 - viestien poistamisen mahdollisuus (ja kommentin?)
 
 lopputarkastus:
