@@ -33,4 +33,5 @@ public class Message extends Interactable {
     private List<ThumbUp> messageThumbUps = new ArrayList<>();
     @OneToMany
     private List<Comment> messageComments = new ArrayList<>();
+    private int messageThumbUpCount;
 }

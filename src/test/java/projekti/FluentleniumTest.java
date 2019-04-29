@@ -62,48 +62,38 @@ public class FluentleniumTest extends org.fluentlenium.adapter.junit.FluentTest 
 
     @Test
     public void canCreateUserAndLogIn() {
-    }
-
-}
-/*
-    @Test
-    public void canCreateUserAndLogIn() {
         int userAccountRepositorySize = userAccountRepository.findAll().size();
-        UserAccount valtteri = new UserAccount("vale", "pw1245", "pw1245", "Valtteri", "Bottas", "vale77", null, null, null);
-        userAccountRepository.save(valtteri);
-
-        assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
-
-        goTo("http://localhost:" + port);
-        find("#usernameinput").fill().with("vale");
-        find("#passwordinput").fill().with("pw1245");
-
+        goTo("http://localhost:" + port + "/signup");
+        find("#username").fill().with("user123");
+        find("#password").fill().with("1111111111");
+        find("#confirmPassWord").fill().with("1111111111");
+        find("#firstName").fill().with("Kaaleppi");
+        find("#lastName").fill().with("1111111111");
+        find("#profileCode").fill().with("1111111111");
         find("form").first().submit();
-//        assertTrue(pageSource().contains("vale"));
+        assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
+   
+        assertTrue(pageSource().contains("Please log in"));
+        assertTrue(pageSource().contains("usernameinput"));
+        assertTrue(pageSource().contains("passwordinput"));
+        find("#usernameinput").fill().with("user123");
+        find("#passwordinput").fill().with("1111111111");
+        find("form").first().submit();
+        assertTrue(pageSource().contains("Kaaleppi"));
     }
 
-                
-    <form action="/movies" method="POST">
-       
-    Name: <input type="text" name="name" id="name"/>
-    
-                <input type="submit"/>            
-            </form>
-    
-    find("#name").fill().with("Uuno Epsanjassa");
-    
-     <form th:action="@{/login}" method='POST'>
-                                                            <div class="form-group">
-                                                                <label for="username">Username</label>
-                                                                <input type="text" name='username' class="form-control" id="usernameinput"
-                                                                       aria-describedby="emailHelp" placeholder="...">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="password">Password</label>
-                                                                <input type="password" name='password' class="form-control" id="passwordinput"
-                                                                       placeholder="...">
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary" style=" background-color:cadetblue;">Log in</button>
-                                                        </form>
-    
-     }*/
+    @Test
+    public void canCreateUser() {
+        int userAccountRepositorySize = userAccountRepository.findAll().size();
+        goTo("http://localhost:" + port + "/signup");
+        find("#username").fill().with("12345");
+        find("#password").fill().with("12345");
+        find("#confirmPassWord").fill().with("12345");
+        find("#firstName").fill().with("12345");
+        find("#lastName").fill().with("12345");
+        find("#profileCode").fill().with("12345");
+        find("form").first().submit();
+        assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
+        assertTrue(pageSource().contains("Please log in"));
+    }
+}

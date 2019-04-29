@@ -63,7 +63,6 @@ public class ProjektiTest {
         UserAccount userAccount = new UserAccount("lam12", "pw1245", "pw1245", "first", "last", "lam85", null, null, null);
         userAccountRepository.save(userAccount);
         assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
-//        assertTrue(userAccountRepository.findAll().contains(u));
     }
 
     @Test
@@ -78,14 +77,14 @@ public class ProjektiTest {
     @Test
     public void addingOneMessageIncreacesDatabaseSize() {
         int messageRepositorySize = messageRepository.findAll().size();
-        Message message = new Message(null, null, now(), "content 1454", null, null);
+        Message message = new Message(null, null, now(), "content 1454", null, null, 0);
         messageRepository.save(message);
         assertTrue(messageRepository.findAll().size() == messageRepositorySize + 1);
     }
 
     @Test
     public void canAddMessageAndIdMatches() {
-        Message message = new Message(null, null, now(), "content 1454", null, null);
+        Message message = new Message(null, null, now(), "content 1454", null, null, 0);
         messageRepository.save(message);
         Long id = message.getId();
         Long fetchedId = messageRepository.getOne(id).getId();
@@ -110,16 +109,6 @@ public class ProjektiTest {
     }
 
     @Test
-    public void addingCommentIncreacesDatabaseSize() {
-        int commentRepositorySize = commentRepository.findAll().size();
-        Message message = new Message(null, null, now(), "want some ice cream", null, null);
-        messageRepository.save(message);
-        Comment comment = new Comment(null, message, now(), "comment 114");
-        commentRepository.save(comment);
-        assertTrue(commentRepository.findAll().size() == commentRepositorySize + 1);
-    }
-
-    @Test
     public void canAddCommentAndIdMatches() {
         Comment comment = new Comment(null, null, now(), "comment 556555");
         commentRepository.save(comment);
@@ -136,7 +125,7 @@ public class ProjektiTest {
         userAccountRepository.save(stargazer);
         userAccountRepository.save(friend);
 
-        Message message = new Message(stargazer, friend, now(), "stars r nice", null, null);
+        Message message = new Message(stargazer, friend, now(), "stars r nice", null, null, 0);
         messageRepository.save(message);
 
         Comment comment = new Comment(stargazer, message, now(), "comment 556555");

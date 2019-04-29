@@ -5,12 +5,15 @@ Paja:
 2do:
 - käyttäjien etsiminen nimellä https://www.youtube.com/watch?v=FCwKQzJ4Ubw
 https://getbootstrap.com/docs/4.0/components/navbar/#forms
+https://stackoverflow.com/questions/29882361/show-datalist-labels-but-submit-the-actual-value
+https://stackoverflow.com/questions/50957811/autocomplete-datalist-on-thymeleaf
 
-- testit
+- testit lisää viesti ja kommentoi sitä
 - viestien poistamisen mahdollisuus (ja kommentin?)
+korjaa ajat!
 
 lopputarkastus:
-- käyttämättämät importit
+- käyttämättämät importit 
 - controllereista suorat viittaukset repoihin pois
 - käytetyt testit readmehen ja hibernate
 
@@ -93,3 +96,11 @@ When you are imagining, you might as well imagine something worth while. – Luc
 
 
 
+                                                                <!--<td th:text="${#lists.size(message.messageThumbUps)}">/</td>-->
+                                                                <!--<th th:if="${not #lists.isEmpty(message.messageThumbUps)}"--> 
+                                                                <td th:text="${message.thumbUpCount}"></td>
+                                                                <!--<td th:if="${message.messageThumbUps} != null" th:text="${#lists.size(message.messageThumbUps)}"></td>-->
+                                                                <!--<td th:if="${not #lists.isEmpty(message.messageThumbUps)}" th:text="${#lists.size(message.messageThumbUps)}"></td>-->
+                                                                <!--<td th:text="'Message like count: ' + ${#lists.size(message.messageThumbUps)}"></td>-->
+                                                                <!--<th th:text="${#lists.size(message.messageThumbUps)}">-->
+                                                                <!--<span th:text="'Welcome to our application, ' + ${user.name} + '!'">-->

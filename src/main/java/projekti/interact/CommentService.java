@@ -37,7 +37,7 @@ public class CommentService {
     }
 
     public Page<Comment> getMax10CommentsByInteractableId(Long id) {
-        Pageable pageable = PageRequest.of(0, 3, Sort.by("commentTimeStamp").descending());
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("commentTimeStamp").descending());
         Page<Comment> max10Comments = commentRepository.findAllByInteractableId(pageable, id);
         return max10Comments;
     }

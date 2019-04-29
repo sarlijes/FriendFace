@@ -37,4 +37,5 @@ public class Picture extends Interactable {
     private List<Comment> pictureComments = new ArrayList<>();
     @OneToMany
     private List<ThumbUp> pictureThumbUps = new ArrayList<>();
+    private int pictureThumbUpCount;
 }

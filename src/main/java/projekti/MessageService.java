@@ -24,7 +24,7 @@ public class MessageService {
 
     @Transactional
     public void addWallMessage(UserAccount sender, UserAccount reciever, LocalDateTime dateTime, String content) {
-        Message message = new Message(sender, reciever, dateTime, content, null, null);
+        Message message = new Message(sender, reciever, dateTime, content, null, null, 0);
         messageRepository.save(message);
     }
 

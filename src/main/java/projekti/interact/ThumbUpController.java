@@ -60,16 +60,24 @@ public class ThumbUpController {
         String loggedInUsername = auth.getName();
         UserAccount giver = userAccountService.getUserAccountByUserName(loggedInUsername);
         Message message = messageRepository.getOne(id);
+
+        int thumbUpCount = message.getMessageThumbUpCount();
+
         ThumbUp thumbUp = new ThumbUp(giver, message);
         for (ThumbUp t : message.getMessageThumbUps()) {
             if (t.getGiver() == giver) {
                 message.getMessageThumbUps().remove(t);
                 thumbUpService.deleteThumbUpById(t.getId());
-                return "redirect:/profile/" + profileCode;
+                thumbUpCount--;
+
+            } else {
+                thumbUpCount++;
+                message.getMessageThumbUps().add(thumbUp);
+                thumbUpService.addThumbUp(thumbUp);
             }
+
         }
-        message.getMessageThumbUps().add(thumbUp);
-        thumbUpService.addThumbUp(thumbUp);
+        message.setMessageThumbUpCount(thumbUpCount);
         return "redirect:/profile/" + profileCode;
     }
 
