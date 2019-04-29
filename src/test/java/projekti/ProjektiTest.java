@@ -77,14 +77,14 @@ public class ProjektiTest {
     @Test
     public void addingOneMessageIncreacesDatabaseSize() {
         int messageRepositorySize = messageRepository.findAll().size();
-        Message message = new Message(null, null, now(), "content 1454", null, null);
+        Message message = new Message(null, null, now(), "content 1454", 0, null, null);
         messageRepository.save(message);
         assertTrue(messageRepository.findAll().size() == messageRepositorySize + 1);
     }
 
     @Test
     public void canAddMessageAndIdMatches() {
-        Message message = new Message(null, null, now(), "content 1454", null, null);
+        Message message = new Message(null, null, now(), "content 1454", 0, null, null);
         messageRepository.save(message);
         Long id = message.getId();
         Long fetchedId = messageRepository.getOne(id).getId();
@@ -125,7 +125,7 @@ public class ProjektiTest {
         userAccountRepository.save(stargazer);
         userAccountRepository.save(friend);
 
-        Message message = new Message(stargazer, friend, now(), "stars r nice", null, null);
+        Message message = new Message(stargazer, friend, now(), "stars r nice", 0, null, null);
         messageRepository.save(message);
 
         Comment comment = new Comment(stargazer, message, now(), "comment 556555");

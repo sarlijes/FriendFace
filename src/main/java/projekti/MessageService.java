@@ -20,11 +20,10 @@ public class MessageService {
     private MessageRepository messageRepository;
     @Autowired
     private UserAccountRepository userAccountRepository;
-    
 
     @Transactional
     public void addWallMessage(UserAccount sender, UserAccount reciever, LocalDateTime dateTime, String content) {
-        Message message = new Message(sender, reciever, dateTime, content, null, null);
+        Message message = new Message(sender, reciever, dateTime, content, 0, null, null);
         messageRepository.save(message);
     }
 
