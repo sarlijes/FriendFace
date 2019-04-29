@@ -30,7 +30,6 @@ public class Picture extends Interactable {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
-
     @ManyToOne(cascade = CascadeType.ALL)
     private PictureAlbum pictureAlbum;
     @OneToMany

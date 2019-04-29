@@ -18,6 +18,7 @@
 
                                 <div class="collapse navbar-collapse" id="main-navigation" style="margin-left:300px">
 
+
                                     <form th:if="${!allUserAccounts.empty}" th:action="@{/profile/{profileCode}/sendFriendRequest(profileCode=${userAccount.profileCode})}"
                                           method="POST">
                                         <!--<input  list="allUserAccounts" name="allUserAccounts" >--> 
@@ -127,6 +128,7 @@
                                                                + ':'"
                                                         </p>
                                                         <p th:text="${message.content}"></p>
+<<<<<<< HEAD
                                                         <p>
 
                                                             <table style="position: absolute; right: 30px;">
@@ -144,6 +146,21 @@
                                                                     </th>
                                                                 </tr>
                                                             </table></p>
+=======
+
+                                                        <table style="position: absolute; right: 30px;">
+                                                            <tr>
+                                                                <td th:text="' Message like count: ' + ${message.thumbUpCount}"></td>
+                                                                <th>
+                                                                    <form 
+                                                                        th:action="@{/profile/{profileCode}/message/{id}/addThumbUp(profileCode=${userAccount.profileCode},id=${message.id})}"th:method="POST">
+                                                                        <input type="submit" value="Like" />
+                                                                    </form>
+                                                                </th>
+                                                            </tr>
+
+                                                        </table>
+>>>>>>> 42f744a12611d5f6c594916ce0bf559314c3801e
 
                                                         <ul style="list-style: none; font-weight: 500;">
                                                             <div  th:each="comment: ${message.messageComments}">
@@ -198,8 +215,12 @@
 
                                                             <div style="display: flex; margin: 10px; padding: 10px;">
                                                                 <form>
+<<<<<<< HEAD
                                                                     <th th:text="'Picture like count: ' + ${picture.pictureThumbUpCount}">
                                                                     </th>
+=======
+                                                                    <th  th:text="' Picture like count: ' + ${picture.thumbUpCount}">
+>>>>>>> 42f744a12611d5f6c594916ce0bf559314c3801e
                                                                 </form>
                                                                 <form th:action="@{/profile/{profileCode}/picture/{id}/addThumbUp(profileCode=${userAccount.profileCode},id=${picture.id})}"th:method="POST">
                                                                     <input type="submit" value="Like" />

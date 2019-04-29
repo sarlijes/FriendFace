@@ -44,7 +44,6 @@ public class PictureController {
         } 
         UserAccount u = userAccountService.getUserAccountByProfileCode(profileCode);
         
-        
         if (u.getPictureAlbum().getPictures().size()  <= 9 && !file.isEmpty()) {
             pictureService.addPicture(file, profileCode, caption, false);
         }

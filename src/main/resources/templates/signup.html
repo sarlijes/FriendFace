@@ -11,6 +11,7 @@
     <title>FriendFace</title>
 </head>
 
+<<<<<<< HEAD
 <nav class="navbar navbar-expand-md">
     <a class="nav-link" href="/login">FriendFace</a>
 </nav>
@@ -25,6 +26,18 @@
                     <label for="username">Username</label>
                     <input type="text" id="username" th:field="*{userName}" class="form-control">
                     <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName error</div>
+=======
+                        <div class="container login">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h1>SIGN UP</h1>
+                                    <br>
+                                        <form th:action="@{/signup}" th:object="${userAccount}" method="POST">
+                                            <div class="form-group">
+                                                <label for="username">Username</label>
+                                                <input type="text" id="username" th:field="*{userName}" class="form-control">
+                                                    <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName error</div>
+>>>>>>> 42f744a12611d5f6c594916ce0bf559314c3801e
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Password</label>

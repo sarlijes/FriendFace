@@ -21,6 +21,7 @@ import projekti.interact.FriendRequest;
 @AllArgsConstructor
 public class UserAccount extends AbstractPersistable<Long> {
 
+  
     @NotEmpty
     @Size(min = 2, max = 50)
     private String userName;
