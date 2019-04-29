@@ -132,7 +132,7 @@
 
                                                             <table style="position: absolute; right: 30px;">
                                                                 <tr>
-                                                                    <th th:text="'Message like count: ' + ${#lists.size(message.messageThumbUps)}">
+                                                                    <th th:if="${not #lists.isEmpty(message.messageThumbUps)}" th:text="'Message like count: ' + ${#lists.size(message.messageThumbUps)}">
                                                                     </th>
                                                                     <th>
                                                                         <form 
