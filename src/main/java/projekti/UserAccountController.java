@@ -128,7 +128,6 @@ public class UserAccountController {
             if (userAccountService.userNameisValid(userAccount.getUserName())) {
                 if (userAccountService.profileCodeisValid(userAccount.getProfileCode())) {
                     userAccount.setPassWord(passwordEncoder.encode(userAccount.getPassWord()));
-
                     userAccount.setConfirmPassWord(passwordEncoder.encode(userAccount.getConfirmPassWord()));
                     userAccountService.addUserAccount(userAccount);
                     pictureAlbumService.addPictureAlbum(userAccountService.getIdByProfileCode(userAccount.getProfileCode()));

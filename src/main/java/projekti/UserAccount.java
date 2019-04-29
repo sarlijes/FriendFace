@@ -22,6 +22,7 @@ import projekti.interact.FriendRequest;
 public class UserAccount extends AbstractPersistable<Long> {
 
   
+    @NotEmpty
     @Size(min = 2, max = 50)
     private String userName;
     @NotEmpty
@@ -29,10 +30,13 @@ public class UserAccount extends AbstractPersistable<Long> {
     @NotEmpty
     private String confirmPassWord;
     @NotEmpty
+    @Size(min = 2, max = 50)
     private String firstName;
     @NotEmpty
+    @Size(min = 2, max = 50)
     private String lastName;
     @NotEmpty
+    @Size(min = 2, max = 50)
     private String profileCode;
     @OneToOne(cascade = CascadeType.ALL)
     private PictureAlbum pictureAlbum;
