@@ -6,9 +6,11 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import projekti.interact.Comment;
 import projekti.interact.ThumbUp;
@@ -22,13 +24,13 @@ public class Picture extends Interactable {
     private Long contentLength;
     private String name;
     private String contentType;
-    @Lob
-    @Column(name = "CAPTION", length = 1500)
     private String caption;
     private Boolean isProfilePicture;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
+//    @Lob
+//    @Basic(fetch = FetchType.LAZY)
+//    @NotEmpty
+    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] content;
     @ManyToOne(cascade = CascadeType.ALL)
     private PictureAlbum pictureAlbum;
