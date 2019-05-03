@@ -1,22 +1,7 @@
-Paja:
-- tiedostomuodon rajaus muu kuin jpg
-- metoditason autorisointi @Secured("profileCode") (koodi alla jemmassa)
-
-2do:
-- käyttäjien etsiminen nimellä https://www.youtube.com/watch?v=FCwKQzJ4Ubw
-https://getbootstrap.com/docs/4.0/components/navbar/#forms
-https://stackoverflow.com/questions/29882361/show-datalist-labels-but-submit-the-actual-value
-https://stackoverflow.com/questions/50957811/autocomplete-datalist-on-thymeleaf
-
-- testit lisää viesti ja kommentoi sitä
-- viestien poistamisen mahdollisuus (ja kommentin?)
-korjaa ajat!
-
 lopputarkastus:
 - käyttämättämät importit 
 - controllereista suorat viittaukset repoihin pois
 - käytetyt testit readmehen ja hibernate
-
 
 [UserAccount]
 [FriendRequest]
@@ -41,16 +26,6 @@ lopputarkastus:
 [Interactable]1-*[Comment]
 [Wall]-*[Message]
 
-http://www.freestockphotos.biz/
-
-Eugenijus Radlinskas 
-Benjamin Miller
-Petr Kratochvil
-Free Stock Photos Library
-FSP Vintage Collection
-Mitra Mirshahidi 
-Amanda Mills
-
 There is some good in this world, and it’s worth fighting for. – J.R.R. Tolkien: The Two Towers
 
 Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do. – H.Jackson Brown Jr.: P.S. I Love You
@@ -65,42 +40,3 @@ When you are imagining, you might as well imagine something worth while. – Luc
 
 “None of those other things makes a difference. Love is the strongest thing in the world, you know. Nothing can touch it. Nothing comes close. If we love each other we’re safe from it all. Love is the biggest thing there is.” - David Guterson: Snow Falling on Cedars
 
-
-                                        <div sec:authorize=${hasAuthority('JESSI')}>
-                                            <p>näkyy vain omassa profiilissa 11111ff55</p>
-                                        </div>
-                                        <div sec:authorize=${hasAuthority('userAccount.userName')}>
-                                            <p>näkyy vain omassa profiilissa 11111</p>
-                                        </div>
-                                        <div sec:authorize=${hasAuthority('${#strings.toUpperCase(userAccount.userName)}')}>
-                                            <p>näkyy vain omassa profiilissa 22222</p>
-                                        </div>
-                                        <div sec:authorize="hasAuthority('loggedUserNameUpperCase')">
-                                            <p>salaisuus 49</p>
-                                        </div>
-                                        <div th:if="${userAccount.userName == logged.userName}">
-                                            <p>salainen viesti 59</p>
-                                        </div>
-                                        <div sec:authorize="hasRole('USER')">Text visible to user.</div>
-                                        <div sec:authorize="hasRole('loggedUserNameUpperCase')">Text visible to loggedUserNameUpperCase.</div>
-                                        <div sec:authorize="isAuthenticated()">                                           Text visible only to authenticated users.</div>
-                                        <br>
-                                            Authenticated username:
-                                            <div sec:authentication="name"></div>
-                                            Authenticated user roles:
-                                            <div sec:authentication="principal.authorities"></div>
-                                            <br>
-                                                <div th:text="'The name of the owner of this profile user is    ' + ${userAccount.userName}"></div>
-                                                <div th:text="'The name of the logged user is    ' + ${logged.userName}"></div>
-
-
-
-
-                                                                <!--<td th:text="${#lists.size(message.messageThumbUps)}">/</td>-->
-                                                                <!--<th th:if="${not #lists.isEmpty(message.messageThumbUps)}"--> 
-                                                                <td th:text="${message.thumbUpCount}"></td>
-                                                                <!--<td th:if="${message.messageThumbUps} != null" th:text="${#lists.size(message.messageThumbUps)}"></td>-->
-                                                                <!--<td th:if="${not #lists.isEmpty(message.messageThumbUps)}" th:text="${#lists.size(message.messageThumbUps)}"></td>-->
-                                                                <!--<td th:text="'Message like count: ' + ${#lists.size(message.messageThumbUps)}"></td>-->
-                                                                <!--<th th:text="${#lists.size(message.messageThumbUps)}">-->
-                                                                <!--<span th:text="'Welcome to our application, ' + ${user.name} + '!'">-->

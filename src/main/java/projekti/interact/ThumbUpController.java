@@ -17,6 +17,7 @@ import projekti.Message;
 import projekti.MessageRepository;
 import projekti.PictureService;
 import projekti.Picture;
+import projekti.PictureRepository;
 
 @Controller
 public class ThumbUpController {
@@ -30,54 +31,39 @@ public class ThumbUpController {
     @Autowired
     private MessageRepository messageRepository;
     @Autowired
+    private PictureRepository pictureRepository;
+    @Autowired
     private ThumbUpService thumbUpService;
 
     @PostMapping("/profile/{profileCode}/picture/{id}/addThumbUp")
     public String addPictureThumbUp(@PathVariable String profileCode, @PathVariable Long id) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUsername = auth.getName();
         Picture picture = pictureService.getOne(id);
-
-        UserAccount giver = userAccountService.getUserAccountByUserName(loggedInUsername);
-
-        ThumbUp thumbUp = new ThumbUp(giver, picture);
-
-        for (ThumbUp t : picture.getPictureThumbUps()) {
-            if (t.getGiver() == giver) {
-                picture.getPictureThumbUps().remove(t);
-                thumbUpService.deleteThumbUpById(t.getId());
-                return "redirect:/profile/" + profileCode;
-            }
+        int thumbUpCount = picture.getPictureThumbUpCount();
+        if (thumbUpCount == 0) {
+            thumbUpCount++;
+            picture.setPictureThumbUpCount(thumbUpCount);
+            pictureRepository.save(picture);
+        } else {
+            thumbUpCount--;
+            picture.setPictureThumbUpCount(thumbUpCount);
+            pictureRepository.save(picture);
         }
-        picture.getPictureThumbUps().add(thumbUp);
-        thumbUpService.addThumbUp(thumbUp);
         return "redirect:/profile/" + profileCode;
     }
 
     @PostMapping("/profile/{profileCode}/message/{id}/addThumbUp")
     public String addMessageThumbUp(@PathVariable String profileCode, @PathVariable Long id) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUsername = auth.getName();
-        UserAccount giver = userAccountService.getUserAccountByUserName(loggedInUsername);
         Message message = messageRepository.getOne(id);
-
         int thumbUpCount = message.getMessageThumbUpCount();
-
-        ThumbUp thumbUp = new ThumbUp(giver, message);
-        for (ThumbUp t : message.getMessageThumbUps()) {
-            if (t.getGiver() == giver) {
-                message.getMessageThumbUps().remove(t);
-                thumbUpService.deleteThumbUpById(t.getId());
-                thumbUpCount--;
-
-            } else {
-                thumbUpCount++;
-                message.getMessageThumbUps().add(thumbUp);
-                thumbUpService.addThumbUp(thumbUp);
-            }
-
+        if (thumbUpCount == 0) {
+            thumbUpCount++;
+            message.setMessageThumbUpCount(thumbUpCount);
+            messageRepository.save(message);
+        } else {
+            thumbUpCount--;
+            message.setMessageThumbUpCount(thumbUpCount);
+            messageRepository.save(message);
         }
-        message.setMessageThumbUpCount(thumbUpCount);
         return "redirect:/profile/" + profileCode;
     }
 
