@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import projekti.MessageService;
 import projekti.UserAccount;
 import projekti.UserAccountService;
-import projekti.Interactable;
 import projekti.Message;
 import projekti.MessageRepository;
 import projekti.PictureService;
@@ -23,8 +22,6 @@ public class CommentController {
 
     @Autowired
     private UserAccountService userAccountService;
-    @Autowired
-    private MessageService messageService;
     @Autowired
     private PictureService pictureService;
     @Autowired

@@ -10,8 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import projekti.interact.Comment;
 import projekti.interact.ThumbUp;
 
@@ -27,10 +25,12 @@ public class Picture extends Interactable {
     private String caption;
     private Boolean isProfilePicture;
 
-//    @Lob
-//    @Basic(fetch = FetchType.LAZY)
-//    @NotEmpty
-    @Type(type = "org.hibernate.type.BinaryType")
+//  Local annotations:
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @NotEmpty
+//    Heroku-proof annotation:
+//    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] content;
     @ManyToOne(cascade = CascadeType.ALL)
     private PictureAlbum pictureAlbum;

@@ -1,20 +1,7 @@
 package projekti;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.util.List;
-import static org.fluentlenium.core.filter.FilterConstructor.withText;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,33 +19,10 @@ public class FluentleniumTest extends org.fluentlenium.adapter.junit.FluentTest 
 
     @LocalServerPort
     private Integer port;
-
     @Autowired
     private UserAccountRepository userAccountRepository;
     @Autowired
-    private UserAccountController userAccountController;
-    @Autowired
     private UserAccountService userAccountService;
-    @Autowired
-    private PictureService pictureService;
-    @Autowired
-    private MessageController messageController;
-    @Autowired
-    private MessageRepository messageRepository;
-    @Autowired
-    private MessageService messageService;
-    @Autowired
-    private ThumbUpController thumbUpController;
-    @Autowired
-    private ThumbUpRepository thumbUpRepository;
-    @Autowired
-    private ThumbUpService thumbUpService;
-    @Autowired
-    private CommentController commentController;
-    @Autowired
-    private CommentRepository commentRepository;
-    @Autowired
-    private CommentService commentService;
 
     @Test
     public void canCreateUserAndLogIn() {
@@ -72,14 +36,14 @@ public class FluentleniumTest extends org.fluentlenium.adapter.junit.FluentTest 
         find("#profileCode").fill().with("1111111111");
         find("form").first().submit();
         assertTrue(userAccountService.getAllUserAccounts().size() == userAccountRepositorySize + 1);
-   
+
         assertTrue(pageSource().contains("Please log in"));
         assertTrue(pageSource().contains("usernameinput"));
         assertTrue(pageSource().contains("passwordinput"));
         find("#usernameinput").fill().with("user123");
         find("#passwordinput").fill().with("1111111111");
         find("form").first().submit();
-//        assertTrue(pageSource().contains("Kaaleppi"));
+        assertTrue(pageSource().contains("Kaaleppi"));
     }
 
     @Test

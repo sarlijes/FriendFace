@@ -1,29 +1,17 @@
 package projekti;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import projekti.UserAccount;
-import projekti.UserAccountRepository;
-
 import static org.junit.Assert.*;
-import org.junit.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 import projekti.interact.Comment;
-import projekti.interact.CommentController;
 import projekti.interact.CommentRepository;
-import projekti.interact.CommentService;
 import projekti.interact.ThumbUp;
-import projekti.interact.ThumbUpController;
 import projekti.interact.ThumbUpRepository;
-import projekti.interact.ThumbUpService;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
@@ -33,29 +21,13 @@ public class ProjektiTest {
     @Autowired
     private UserAccountRepository userAccountRepository;
     @Autowired
-    private UserAccountController userAccountController;
-    @Autowired
     private UserAccountService userAccountService;
-    @Autowired
-    private PictureService pictureService;
-    @Autowired
-    private MessageController messageController;
     @Autowired
     private MessageRepository messageRepository;
     @Autowired
-    private MessageService messageService;
-    @Autowired
-    private ThumbUpController thumbUpController;
-    @Autowired
     private ThumbUpRepository thumbUpRepository;
     @Autowired
-    private ThumbUpService thumbUpService;
-    @Autowired
-    private CommentController commentController;
-    @Autowired
     private CommentRepository commentRepository;
-    @Autowired
-    private CommentService commentService;
 
     @Test
     public void addingOneUserAccountIncreacesDatabaseSize() {
@@ -146,6 +118,5 @@ public class ProjektiTest {
         assertFalse(messageRepository.getOne(messageId).getId() == null);
         assertFalse(commentRepository.getOne(commentId).getId() == null);
         assertFalse(thumbUpRepository.getOne(thumbUpId).getId() == null);
-//        assertTrue(messageRepository.getOne(messageId).getMessageComments().contains(c));
     }
 }

@@ -11,7 +11,7 @@ FriendFace is a social media project. It allows registered users to:
 - write on "walls" of users
 - comment and like pictures and wall messages
 
-The project can be accessed at: https://pure-garden-44076.herokuapp.com/ with the either signing up or with the following sample credentials:
+The project can be accessed at: https://warm-cove-42776.herokuapp.com/ with the either signing up or with the following sample credentials:
 
 username: esmeralda		
 password: 123

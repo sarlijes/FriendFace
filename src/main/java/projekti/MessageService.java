@@ -18,8 +18,6 @@ public class MessageService {
 
     @Autowired
     private MessageRepository messageRepository;
-    @Autowired
-    private UserAccountRepository userAccountRepository;
 
     @Transactional
     public void addWallMessage(UserAccount sender, UserAccount reciever, LocalDateTime dateTime, String content) {

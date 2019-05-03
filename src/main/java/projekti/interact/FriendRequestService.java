@@ -1,24 +1,16 @@
 package projekti.interact;
 
-import java.time.LocalDateTime;
-import static java.time.LocalDateTime.now;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projekti.PictureAlbum;
-import projekti.PictureAlbumRepository;
 import projekti.UserAccount;
 import projekti.UserAccountRepository;
 
 @Service
 public class FriendRequestService {
-
-    @Autowired
-    private UserAccountRepository userAccountRepository;
-
+    
     @Autowired
     private FriendRequestRepository friendRequestRepository;
 
