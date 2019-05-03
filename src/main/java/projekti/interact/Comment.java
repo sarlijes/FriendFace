@@ -1,6 +1,7 @@
 package projekti.interact;
 
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -16,13 +17,14 @@ import projekti.UserAccount;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Comment extends AbstractPersistable<Long>{
+public class Comment extends AbstractPersistable<Long> {
 
     @ManyToOne
     private UserAccount writer;
     @ManyToOne
     private Interactable interactable;
     private LocalDateTime commentTimeStamp;
+    @Column(columnDefinition = "TEXT", length = 2500)
     private String content;
 
 }

@@ -26,6 +26,7 @@ public class Message extends Interactable {
     @ManyToOne
     private UserAccount reciever;
     private LocalDateTime messageTimeStamp;
+    @Column(columnDefinition = "TEXT", length = 2500)
     private String content;
     @OneToMany
     private List<ThumbUp> messageThumbUps = new ArrayList<>();
