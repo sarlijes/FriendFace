@@ -52,8 +52,10 @@ public class ThumbUpController {
     public String addMessageThumbUp(@PathVariable String profileCode, @PathVariable Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
+        
         UserAccount giver = userAccountService.getUserAccountByUserName(loggedInUsername);
         Message message = messageRepository.getOne(id);
+        
         ThumbUp thumbUp = new ThumbUp(giver, message);
         for (ThumbUp t : message.getMessageThumbUps()) {
             if (t.getGiver() == giver) {
