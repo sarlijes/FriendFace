@@ -11,15 +11,15 @@ FriendFace is a social media project. It allows registered users to:
 - write on "walls" of users
 - comment and like pictures and wall messages
 
-The project can be accessed at: https://warm-cove-42776.herokuapp.com/ with the either signing up or with the following sample credentials:
+The project can be accessed at: https://warm-gorge-55940.herokuapp.com with the either signing up or with the following sample credentials:
 
-username: esmeralda		
+username: esmeralda, 		
 password: 123
 
-username: vlad			
+username: vlad,		
 password: 123
 
-username: maxwell		
+username: maxwell, 		
 password: 123
 
 Picture Source: http://www.freestockphotos.biz/, licensed under either CC or FSP Standard License. 
