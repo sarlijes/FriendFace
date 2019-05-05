@@ -2,6 +2,7 @@ package projekti;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,22 +16,27 @@ public class UserAccountService {
         userAccount.setPictureAlbum(new PictureAlbum());
     }
 
+    @Cacheable("useraccounts")
     public Long getIdByProfileCode(String profileCode) {
         return userAccountRepository.getUserAccountByProfileCode(profileCode).getId();
     }
 
+    @Cacheable("useraccounts")
     public UserAccount getUserAccountById(Long id) {
         return userAccountRepository.getUserAccountById(id);
     }
 
+    @Cacheable("useraccounts")
     public UserAccount getUserAccountByUserName(String userName) {
         return userAccountRepository.getUserAccountByUserName(userName);
     }
 
+    @Cacheable("useraccounts")
     public UserAccount getUserAccountByProfileCode(String profileCode) {
         return userAccountRepository.getUserAccountByProfileCode(profileCode);
     }
 
+    @Cacheable("useraccounts")
     public List<UserAccount> getAllUserAccounts() {
         return userAccountRepository.findAll();
     }
