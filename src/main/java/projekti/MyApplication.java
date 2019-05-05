@@ -10,7 +10,7 @@ public class MyApplication {
 
     @PostConstruct
     public void started() {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC+2"));
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Helsinki"));
     }
 
     public static void main(String[] args) {

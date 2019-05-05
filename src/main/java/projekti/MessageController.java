@@ -2,7 +2,6 @@ package projekti;
 
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
-import java.time.ZoneId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +26,7 @@ public class MessageController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = auth.getName();
 
-        LocalDateTime dateTime = LocalDateTime.now(ZoneId.systemDefault());
+        LocalDateTime dateTime = now();
         UserAccount reciever = userAccountService.getUserAccountByProfileCode(profileCode);
         UserAccount sender = userAccountService.getUserAccountByUserName(loggedInUsername);
         messageService.addWallMessage(sender, reciever, dateTime, content);
