@@ -3,7 +3,6 @@ package projekti;
 import java.util.*;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -42,6 +41,7 @@ public class UserAccountController {
     private FriendRequestService friendRequestService;
     @Autowired
     private FriendRequestController friendRequestController;
+
 
     @GetMapping("/homepage")
     public String homepage() {
@@ -97,7 +97,6 @@ public class UserAccountController {
     }
 
     @PostMapping("/signup")
-    @CacheEvict(value = "useraccounts", allEntries = true)
     public String create(@Valid @ModelAttribute UserAccount userAccount, BindingResult bindingResult) {
         if (!userAccount.getPassWord().equals(userAccount.getConfirmPassWord())) {
             bindingResult.rejectValue("confirmPassWord", "error.userName", "Passwords don't match");

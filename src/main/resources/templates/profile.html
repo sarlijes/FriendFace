@@ -121,16 +121,16 @@
                                                         <p th:text="${message.content}"></p>
                                                         <p>
                                                             <table style="position: absolute; right: 30px;">
-                                                                <tr>
-<!--                                                                    <th>Message like count:</th>
-                                                                    <th th:text="${#lists.size(message.messageThumbUps)}"></th>-->
-<!--                                                                    <th>
+<!--                                                                <tr>
+                                                                    <th>Message like count:</th>
+                                                                    <th th:text="${#lists.size(message.messageThumbUps)}"></th>
+                                                                    <th>
                                                                         <form 
                                                                             th:action="@{/profile/{profileCode}/message/{id}/addThumbUp(profileCode=${userAccount.profileCode},id=${message.id})}"th:method="POST">
                                                                             <input type="submit" value="Like" />
                                                                         </form>
-                                                                    </th>-->
-                                                                </tr>
+                                                                    </th>
+                                                                </tr>-->
                                                             </table></p>
                                                         <ul style="list-style: none; font-weight: 500;">
                                                             <div  th:each="comment: ${message.messageComments}">
