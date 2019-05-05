@@ -122,14 +122,14 @@
                                                         <p>
                                                             <table style="position: absolute; right: 30px;">
                                                                 <tr>
-<!--                                                                    <th>Message like count:</th>
-                                                                    <th th:text="${#lists.size(message.messageThumbUps)}"></th>-->
-<!--                                                                    <th>
+                                                                    <th>Message like count:</th>
+                                                                    <th th:text="${#lists.size(message.messageThumbUps)}"></th>
+                                                                    <th>
                                                                         <form 
                                                                             th:action="@{/profile/{profileCode}/message/{id}/addThumbUp(profileCode=${userAccount.profileCode},id=${message.id})}"th:method="POST">
                                                                             <input type="submit" value="Like" />
                                                                         </form>
-                                                                    </th>-->
+                                                                    </th>
                                                                 </tr>
                                                             </table></p>
                                                         <ul style="list-style: none; font-weight: 500;">
@@ -181,7 +181,7 @@
                                                                     <input type="submit" id="delete" value="Delete"/>
                                                                 </form>
                                                             </div>
-<!--                                                            <div style="display: flex; margin: 10px; padding: 10px;">
+                                                            <div style="display: flex; margin: 10px; padding: 10px;">
                                                                 <form>
                                                                     <th> Picture like count: </th>
                                                                     <th th:text="${#lists.size(picture.pictureThumbUps)}"></th>
@@ -189,7 +189,7 @@
                                                                 <form th:action="@{/profile/{profileCode}/picture/{id}/addThumbUp(profileCode=${userAccount.profileCode},id=${picture.id})}"th:method="POST">
                                                                     <input type="submit" value="Like" />
                                                                 </form>
-                                                            </div>-->
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     </div>
