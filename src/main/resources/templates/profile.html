@@ -110,6 +110,11 @@
                                                         <input style="width:500px;"  type="text" name="content" placeholder="..."/>
                                                         <input style="width:200px;"  type="submit" value="Write to the wall" />
                                                     </form><br>
+                                                        
+                                                        <div th:each="message : ${recievedmessages}">
+                                                            <div  th:text="${#lists.size(message.messageThumbUps)}"></div>
+                                                        </div>
+                                                        
                                                         <section th:each="message : ${recievedmessages}">
                                                             <span th:text="${#lists.size(message.messageThumbUps)}"></span>
                                                             <p th:text="${message.sender.firstName}
