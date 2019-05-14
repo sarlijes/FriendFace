@@ -1,6 +1,6 @@
 Language: Java 
 
-Created: 4/2019 (Java experience: 4 months)
+Created: 4-5/2019 (Java experience: 4-5 months)
 
 Keywords: Java, Thymeleaf, Spring Boot, Hibernate, Lombok, Bootstrap, CSS, H2
 
