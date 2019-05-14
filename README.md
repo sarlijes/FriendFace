@@ -4,7 +4,7 @@ Created: 4/2019 (Java experience: 4 months)
 
 Keywords: Java, Thymeleaf, Spring Boot, Hibernate, Lombok, Bootstrap, CSS, H2
 
-FriendFace is a solo social media project. It was a course project for the "Server-side web development Java" course at Helsinki Open Uni. 
+FriendFace is a solo social media project. It was a course project for the "Server-side web development Java" course at Helsinki Open Uni. The purpose of the exercice was to re-create a Facebook of it's early times.
 
 It allows registered users to:
 
