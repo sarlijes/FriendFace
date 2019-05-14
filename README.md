@@ -2,16 +2,18 @@ Language: Java
 
 Created: 4/2019 (Java experience: 4 months)
 
-Keywords: Java, Thymeleaf, Spring Boot, Hibernate Lombok, Bootstrap, CSS, H2
+Keywords: Java, Thymeleaf, Spring Boot, Hibernate, Lombok, Bootstrap, CSS, H2
 
-FriendFace is a social media project. It allows registered users to:
+FriendFace is a solo social media project. It was a course project for the "Server-side web development Java" course at Helsinki Open Uni. 
+
+It allows registered users to:
 
 - add pictures
 - send friend requests
-- write on "walls" of users
+- write on the walls of users
 - comment and like pictures and wall messages
 
-The project can be accessed at: https://obscure-lake-58242.herokuapp.com/ with the either signing up or with the following sample credentials:
+The project can be accessed at: https://frozen-scrubland-76687.herokuapp.com/ with the either signing up or with the following sample credentials:
 
 username: esmeralda, 		
 password: 123

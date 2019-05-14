@@ -64,7 +64,7 @@ public class UserAccountController {
         List<FriendRequest> recievedFriendRequests = friendRequestService.getRecievedFriendRequestsByUserAccount(userAccount);
 
         List<UserAccount> allUserAccounts = userAccountService.getAllUserAccounts();
-        List<UserAccount> possibleFriends = friendRequestController.findPossibleFriends(allUserAccounts, userAccount);
+        List<UserAccount> possibleFriends = friendRequestController.findPossibleFriends(allUserAccounts, userAccountService.getUserAccountByUserName(loggedInUsername));
         Boolean hasFriends = friendRequestController.hasFriends(userAccount);
 
         model.addAttribute("logged", userAccountService.getUserAccountByUserName(loggedInUsername));
@@ -79,9 +79,11 @@ public class UserAccountController {
 
         for (Message m : recievedmessages) {
             m.setMessageComments(commentService.getCommentsByInteractableId(m.getId()));
+            m.setMessageThumbUpCount(m.getMessageThumbUps().size());
         }
         for (Picture p : pictures) {
             p.setPictureComments(commentService.getCommentsByInteractableId(p.getId()));
+            p.setPictureThumbUpCount(p.getPictureThumbUps().size());
         }
 
         model.addAttribute("pictures", pictures);
