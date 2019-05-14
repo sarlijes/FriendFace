@@ -104,7 +104,8 @@
                                             <ul class="nav nav-pills flex-column"><li class="nav-item">
                                                     <a class="nav-link disabled" href="#">Add new picture to gallery</a>
                                                 </li></ul> 
-                                            <form method="POST" action="/profile/esme535"
+
+                                            <form method="POST" th:action="@{/profile/{profileCode}(profileCode=${userAccount.profileCode})}"
                                                   enctype="multipart/form-data">
                                                 <input type="file" name="file" id="file" />Description:
                                                 <input type="text" name="caption" id="caption" placeholder="..."/>
@@ -112,16 +113,6 @@
                                             </form>
                                         </div>
                                     </div>
-
-<!--                                    <div class="features" th:if="${userAccount.userName == logged.userName}">
-                                        <h5>Add new picture to gallery</h5>
-                                        <form method="POST" th:action="@{/profile/{profileCode}(profileCode=${userAccount.profileCode})}"
-                                              enctype="multipart/form-data">
-                                            <input type="file" name="file" id="file" />Description:
-                                            <input type="text" name="caption" id="caption" placeholder="..."/>
-                                            <input type="submit" value="Add" />
-                                        </form>
-                                    </div>-->
 
                                 </div>
                                 <div class="col-sm-8" style="margin-top: 70px;">
@@ -163,7 +154,7 @@
                                 </div>
 
                                 <div class="col-sm-12" style="padding: 30px;">
-                                    
+
                                     <h2>Picture Gallery</h2>
                                     <tr th:if="${pictures.empty}">
                                         <td colspan="4">No pictures</td>
