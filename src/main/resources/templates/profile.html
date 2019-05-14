@@ -99,10 +99,8 @@
                                         </div>
                                     </div>
 
-
-
-                                    <div class="features">
-                                        <div class="col-12" th:if="${userAccount.userName == logged.userName}">
+                                    <div class="features" th:if="${userAccount.userName == logged.userName}">
+                                        <div class="col-12">
                                             <ul class="nav nav-pills flex-column"><li class="nav-item">
                                                     <a class="nav-link disabled" href="#">Add new picture to gallery</a>
                                                 </li></ul> 
