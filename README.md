@@ -13,7 +13,7 @@ It allows registered users to:
 - write on the walls of users
 - comment and like pictures and wall messages
 
-The project can be accessed at: https://frozen-scrubland-76687.herokuapp.com/ with the either signing up or with the following sample credentials:
+The project can be accessed at: https://obscure-lake-58242.herokuapp.com/ with the either signing up or with the following sample credentials:
 
 username: esmeralda, 		
 password: 123
