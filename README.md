@@ -13,17 +13,6 @@ It allows registered users to:
 - write on the walls of users
 - comment and like pictures and wall messages
 
-The project can be accessed at: https://obscure-lake-58242.herokuapp.com/ with the either signing up or with the following sample credentials:
-
-username: esmeralda, 		
-password: 123
-
-username: vlad,		
-password: 123
-
-username: maxwell, 		
-password: 123
-
 Picture Source: http://www.freestockphotos.biz/, licensed under either CC or FSP Standard License. 
 Picture credits:
 Eugenijus Radlinskas, Benjamin Miller, Petr Kratochvil, Free Stock Photos Library, FSP Vintage Collection, Mitra Mirshahidi, Amanda Mills
