@@ -13,6 +13,8 @@ It allows registered users to:
 - write on the walls of users
 - comment and like pictures and wall messages
 
+![Screenshot](friendface_layout.png)
+
 Picture Source: http://www.freestockphotos.biz/, licensed under either CC or FSP Standard License. 
 Picture credits:
 Eugenijus Radlinskas, Benjamin Miller, Petr Kratochvil, Free Stock Photos Library, FSP Vintage Collection, Mitra Mirshahidi, Amanda Mills
